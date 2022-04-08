@@ -1,0 +1,8 @@
+# https://ansible-lint.readthedocs.io/en/latest/configuring.html#configuration-file
+
+skip_list:
+  - skip_ansible_lint
+  - '106'
+  - '702'
+  - fqcn-builtins
+  - internal-error  # Unexpected internal error.
