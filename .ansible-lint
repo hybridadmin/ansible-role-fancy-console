@@ -5,4 +5,6 @@ skip_list:
   - '106'
   - '702'
   - fqcn-builtins
+
+warn_list:  # or 'skip_list' to silence them completely
   - internal-error  # Unexpected internal error.
