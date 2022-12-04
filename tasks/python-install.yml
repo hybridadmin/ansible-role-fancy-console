@@ -24,6 +24,7 @@
       args:
         executable: /bin/bash
       become: true
+      become_user: "root"
       changed_when: false
 
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
@@ -34,7 +35,7 @@
     ls /usr/bin/python3* | grep -E "python[0-9]{1,2}$" | awk '{print $1}' | xargs
   args:
     executable: /bin/bash
-  become: true
+#  become: true
   register: python3_which
   changed_when: false
 

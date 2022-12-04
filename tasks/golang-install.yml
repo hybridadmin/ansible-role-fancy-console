@@ -30,6 +30,7 @@
         path: /usr/local/go
         state: absent
       become: true
+      become_user: "root"
       changed_when: false
       when:
         - not skip_golang_install
@@ -44,6 +45,7 @@
         mode: "0755"
         remote_src: yes
       become: true
+      become_user: "root"
       changed_when: false
       when:
         - not skip_golang_install

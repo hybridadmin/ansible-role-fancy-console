@@ -39,7 +39,7 @@
     curl --silent "https://api.github.com/repos/garabik/grc/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
   args:
     executable: /bin/bash
-  become: true
+#  become: true
   register: grc_version
   changed_when: false
   when: ansible_os_family != 'Darwin'
@@ -61,6 +61,7 @@
     ./install.sh
   changed_when: False
   become: true
+  become_user: "root"
   when: ansible_os_family != 'Darwin'
 
 - name: Install powerline prompt
@@ -71,7 +72,7 @@
         curl --silent "https://api.github.com/repos/justjanne/powerline-go/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
       args:
         executable: /bin/bash
-      become: true
+#      become: true
       register: poweline_go_version
       changed_when: false
       when: powerline_version == "go" and ansible_os_family != 'Darwin'
@@ -89,7 +90,7 @@
         {{ go_executable }} install github.com/justjanne/powerline-go@latest
       args:
         executable: /bin/bash
-      become: true
+#      become: true
       register: poweline_go_version
       changed_when: false
       when: powerline_version == "go" and ansible_os_family == 'Darwin'
@@ -144,7 +145,7 @@
     curl --silent "https://api.github.com/repos/junegunn/fzf/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
   args:
     executable: /bin/bash
-  become: true
+#  become: true
   register: zsh_fzf_version
   changed_when: false
   when: ansible_os_family != 'Darwin'
@@ -157,6 +158,7 @@
     remote_src: yes
     creates: /usr/local/bin/fzf
   become: true
+  become_user: "root"
   when:
     - zsh_register_fzf_command.rc == 1
     - ansible_os_family != 'Darwin'

@@ -120,6 +120,7 @@
     name: "{{ zsh_user }}"
     shell: /bin/zsh
   become: true
+  become_user: "root"
   when: not zsh_shared | bool
 
 - name: Check zsh env exists
@@ -134,6 +135,7 @@
     dest: /etc/zsh/zshenv
     state: present
   become: true
+  become_user: "root"
   when:
     - ansible_distribution == 'Ubuntu'
     - zsh_env_stats.stat.exists
