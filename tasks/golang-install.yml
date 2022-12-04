@@ -36,7 +36,6 @@
         - not skip_golang_install
         - not latest_go_version.stdout == go_version.stdout
         - go_version.stdout | length >= 0
-        - ansible_os_family != 'Darwin'
 
     - name: Download golang tar
       unarchive:
@@ -51,59 +50,56 @@
         - not skip_golang_install
         - not latest_go_version.stdout == go_version.stdout
         - go_version.stdout | length >= 0
-        - ansible_os_family != 'Darwin'
 
-    - name: Create go directories in home
-      file:
-        path: "{{ item }}"
-        state: directory
-        owner: "{{ zsh_user }}"
-        group: "{{ zsh_user_group }}"
-        mode: 0775
-      with_items:
-        - "{{ zsh_user_dir }}/go"
-        - "{{ zsh_user_dir }}/go/bin"
-        - "{{ zsh_user_dir }}/go/src"
-        - "{{ zsh_user_dir }}/go/pkg"
+  when: ansible_os_family != 'Darwin'
 
-    - name: Modify .bashrc
-      blockinfile:
-        dest: "$HOME/.bashrc"
-        mode: "0644"
-        block: |
-          export GOPATH=$HOME/go
-          export GOBIN=$GOPATH/bin
-          export PATH=$GOBIN:$PATH:/usr/local/go/bin
-        marker: "# {mark} ANSIBLE MANAGED BLOCK - changes for golang"
-        insertafter: EOF
-        create: yes
-      when: ansible_os_family != 'Darwin'
+- name: Create go directories in home
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user_group }}"
+    mode: 0775
+  with_items:
+    - "{{ zsh_user_dir }}/go"
+    - "{{ zsh_user_dir }}/go/bin"
+    - "{{ zsh_user_dir }}/go/src"
+    - "{{ zsh_user_dir }}/go/pkg"
 
-    - name: Modify .bashrc
-      blockinfile:
-        dest: "$HOME/.zprofile"
-        mode: "0644"
-        block: |
-          export GOPATH=$HOME/go
-          export GOBIN=$GOPATH/bin
-          export PATH=$GOBIN:$PATH:/usr/local/go/bin
-        marker: "# {mark} ANSIBLE MANAGED BLOCK - changes for golang"
-        insertafter: EOF
-        create: yes
-      when: ansible_os_family == 'Darwin'
+- name: Modify .bashrc
+  blockinfile:
+    dest: "$HOME/.bashrc"
+    mode: "0644"
+    block: |
+      export GOPATH=$HOME/go
+      export GOBIN=$GOPATH/bin
+      export PATH=$GOBIN:$PATH:/usr/local/go/bin
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - changes for golang"
+    insertafter: EOF
+    create: yes
 
-    - name: Update .bashrc sources
-      command: "/bin/bash -c 'source $HOME/.bashrc'"
-      become: true
-      become_user: "{{ zsh_user }}"
-      changed_when: false
-      failed_when: false
-      when: ansible_os_family != 'Darwin'
+- name: Modify .bashrc
+  blockinfile:
+    dest: "$HOME/.zprofile"
+    mode: "0644"
+    block: |
+      export GOPATH=$HOME/go
+      export GOBIN=$GOPATH/bin
+      export PATH=$GOBIN:$PATH:/usr/local/go/bin
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - changes for golang"
+    insertafter: EOF
+    create: yes
 
-    - name: Update .zprofile sources
-      command: "/bin/bash -c 'source $HOME/.zprofile'"
-      become: true
-      become_user: "{{ zsh_user }}"
-      changed_when: false
-      failed_when: false
-      when: ansible_os_family == 'Darwin'
+- name: Update .bashrc sources
+  command: "/bin/bash -c 'source $HOME/.bashrc'"
+  become: true
+  become_user: "{{ zsh_user }}"
+  changed_when: false
+  failed_when: false
+
+- name: Update .zprofile sources
+  command: "/bin/bash -c 'source $HOME/.zprofile'"
+  become: true
+  become_user: "{{ zsh_user }}"
+  changed_when: false
+  failed_when: false
