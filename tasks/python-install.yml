@@ -6,6 +6,8 @@
       package:
         name: "{{ item }}"
         state: present
+      become: true
+      become_user: "root"
       loop:
         - "{{ python_requirements }}"
 
@@ -63,3 +65,5 @@
   args:
     executable: /bin/bash
   changed_when: false
+  become: true
+  become_user: "root"
