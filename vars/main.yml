@@ -1,5 +1,6 @@
 ---
 skip_golang_install: true
+go_executable: "{% if ansible_os_family == 'Darwin' %}/opt/homebrew/bin/go{% else %}/usr/local/go/bin/go{% endif %}"
 
 os_pkg_manager: "{% if 'Darwin' in ansible_os_family %}brew{% else %}{{ ansible_pkg_mgr }}{% endif %}"
 

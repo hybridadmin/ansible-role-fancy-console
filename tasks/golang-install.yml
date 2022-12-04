@@ -1,5 +1,4 @@
 ---
-# https://github.com/golang/go/wiki/Ubuntu
 
 - name: Get latest golang version
   shell: |

@@ -84,7 +84,7 @@
     - name: MacOS - Install powerline-go
       shell: |
         set -o pipefail
-        /opt/homebrew/bin/go install github.com/justjanne/powerline-go@latest
+        {{ go_executable }} install github.com/justjanne/powerline-go@latest
       args:
         executable: /bin/bash
       become: true
