@@ -94,27 +94,6 @@
   changed_when: False
   when: powerline_version == "shell"
 
-- name: Apply nanorc fix
-  block:
-    - name: Html conf comment fix in nanorc
-      replace:
-        path: "{{ item }}"
-        regexp: "(.*comment.*)"
-        replace: '#\1'
-      changed_when: False
-      loop:
-        - "{{ nano_install_path }}/html.nanorc"
-        - "{{ nano_install_path }}/html.j2.nanorc"
-
-    - name: Etc-hosts conf comment fix in nanorc
-      replace:
-        path: "{{ nano_install_path }}/etc-hosts.nanorc"
-        regexp: "normal"
-        replace: "white"
-      changed_when: False
-
-  when: ansible_os_family != 'Darwin'
-
 - name: Set zsh as default shell
   user:
     name: "{{ zsh_user }}"
