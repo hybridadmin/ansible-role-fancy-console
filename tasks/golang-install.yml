@@ -3,7 +3,7 @@
 - name: Get latest golang version
   shell: |
     set -o pipefail
-    curl -s https://github.com/golang/go/releases | grep "rel.*-branch.go1" | head -n1 | cut -d ' ' -f8 | sed 's/go//'
+    curl 'https://go.dev/VERSION?m=text' | sed 's/go//'
   args:
     executable: /bin/bash
   ignore_errors: yes
@@ -14,7 +14,7 @@
 - name: Check current golang version
   shell: |
     set -o pipefail
-    /usr/local/go/bin/go version|sed -e 's/go version go//g'|cut -d ' ' -f1
+    {{ go_executable }} version|sed -e 's/go version go//g'|cut -d ' ' -f1
   args:
     executable: /bin/bash
   ignore_errors: yes
