@@ -59,10 +59,10 @@
         group: "{{ zsh_user_group }}"
         mode: 0775
       with_items:
-        - "{{ zsh_user_dir.stdout }}/go"
-        - "{{ zsh_user_dir.stdout }}/go/bin"
-        - "{{ zsh_user_dir.stdout }}/go/src"
-        - "{{ zsh_user_dir.stdout }}/go/pkg"
+        - "{{ zsh_user_dir }}/go"
+        - "{{ zsh_user_dir }}/go/bin"
+        - "{{ zsh_user_dir }}/go/src"
+        - "{{ zsh_user_dir }}/go/pkg"
 
     - name: Modify .bashrc
       blockinfile:

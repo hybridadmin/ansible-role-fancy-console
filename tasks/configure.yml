@@ -66,7 +66,7 @@
 
 - name: Create powerline-shell config dir
   file:
-    path: "{{ zsh_user_dir.stdout }}/.config/powerline-shell"
+    path: "{{ zsh_user_dir }}/.config/powerline-shell"
     state: directory
     mode: "0755"
   changed_when: False
@@ -75,7 +75,7 @@
 - name: Write powerline-shell config
   template:
     src: "powerline-shell/powerline-config.j2"
-    dest: "{{ zsh_user_dir.stdout }}/.config/powerline-shell/config.json"
+    dest: "{{ zsh_user_dir }}/.config/powerline-shell/config.json"
     owner: "{{ zsh_user }}"
     mode: "0644"
     group: "{{ zsh_user_group }}"
@@ -86,7 +86,7 @@
 - name: Write powerline-shell theme
   template:
     src: "powerline-shell/powerline-theme.j2"
-    dest: "{{ zsh_user_dir.stdout }}/.config/powerline-shell/powerline-theme.py"
+    dest: "{{ zsh_user_dir }}/.config/powerline-shell/powerline-theme.py"
     owner: "{{ zsh_user }}"
     mode: "0644"
     group: "{{ zsh_user_group }}"
@@ -103,12 +103,12 @@
         replace: '#\1'
       changed_when: False
       loop:
-        - "{{ zsh_user_dir.stdout }}/.nano/html.nanorc"
-        - "{{ zsh_user_dir.stdout }}/.nano/html.j2.nanorc"
+        - "{{ zsh_user_dir }}/.nano/html.nanorc"
+        - "{{ zsh_user_dir }}/.nano/html.j2.nanorc"
 
     - name: Etc-hosts conf comment fix in nanorc
       replace:
-        path: "{{ zsh_user_dir.stdout }}/.nano/etc-hosts.nanorc"
+        path: "{{ zsh_user_dir }}/.nano/etc-hosts.nanorc"
         regexp: "normal"
         replace: "white"
       changed_when: False

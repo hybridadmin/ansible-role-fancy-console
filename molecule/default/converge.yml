@@ -1,7 +1,8 @@
 ---
+
 - name: Converge
   hosts: all
-  remote_user: root
+#  remote_user: root
   any_errors_fatal: true
 
   vars:
@@ -23,3 +24,5 @@
     - name: "Include fancy_console role"
       include_role:
         name: "hybridadmin.fancy_console"
+      become: true
+      become_user: "{{ zsh_user }}"

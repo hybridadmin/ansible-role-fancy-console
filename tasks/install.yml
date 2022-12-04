@@ -7,7 +7,7 @@
     state: directory
     mode: "0755"
   with_items:
-    - "{{ zsh_user_dir.stdout }}/.local/bin"
+    - "{{ zsh_user_dir }}/.local/bin"
 
 - name: List required packages
   debug:
@@ -24,10 +24,10 @@
   shell: |
     set -o pipefail
     {{ yadm_install_cmd }}
-    chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_dir.stdout }}/.yadm-project
+    chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_dir }}/.yadm-project
   args:
     executable: /bin/bash
-    creates: "{{ zsh_user_dir.stdout }}/.yadm-project"
+    creates: "{{ zsh_user_dir }}/.yadm-project"
   changed_when: false
   when: ansible_os_family == 'Debian' and ansible_os_family != 'Darwin'
 
@@ -77,7 +77,7 @@
     - name: Non-MacOS install powerline-go {{ poweline_go_version.stdout }}
       get_url:
         url: "https://github.com/justjanne/powerline-go/releases/download/v{{ poweline_go_version.stdout }}/powerline-go-{{ ansible_system | lower }}-amd64"
-        dest: "{{ zsh_user_dir.stdout }}/go/bin/powerline-go"
+        dest: "{{ zsh_user_dir }}/go/bin/powerline-go"
         mode: "a+x"
       when: powerline_version == "go" and ansible_os_family != 'Darwin'
 
@@ -102,7 +102,7 @@
 - name: Install nano syntax highlighting
   git:
     repo: "https://github.com/scopatz/nanorc.git"
-    dest: "{{ zsh_user_dir.stdout }}/.nano"
+    dest: "{{ zsh_user_dir }}/.nano"
     version: "master"
     force: yes
   become: yes
@@ -123,7 +123,7 @@
   git:
     repo: https://github.com/iwfmp/mc-solarized-skin.git
     version: master
-    dest: "{{ zsh_user_dir.stdout }}/.mc/lib/mc-solarized"
+    dest: "{{ zsh_user_dir }}/.mc/lib/mc-solarized"
     force: yes
   become: yes
   become_user: "{{ zsh_user }}"
