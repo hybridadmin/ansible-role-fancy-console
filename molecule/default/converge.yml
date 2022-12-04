@@ -24,6 +24,6 @@
     - name: "Include fancy_console role"
       include_role:
         name: "hybridadmin.fancy_console"
-        apply:
+#        apply:
 #          become: true
-          become_user: "{{ zsh_user }}"
+#          become_user: "{{ zsh_user }}"
