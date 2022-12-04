@@ -32,3 +32,5 @@ provisioner:
 verifier:
   name: ansible
   enabled: False
+  options:
+    sudo: false
