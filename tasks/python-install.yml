@@ -37,7 +37,6 @@
     ls /usr/bin/python3* | grep -E "python[0-9]{1,2}$" | awk '{print $1}' | xargs
   args:
     executable: /bin/bash
-#  become: true
   register: python3_which
   changed_when: false
 

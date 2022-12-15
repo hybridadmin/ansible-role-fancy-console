@@ -3,18 +3,6 @@
 - name: Set user directory
   set_fact:
     zsh_user_dir: "{{ ansible_user_dir }}"
-#  shell: |
-#    set -o pipefail
-#    if [[ "$OSTYPE" =~ ^darwin ]]; then
-#      echo $HOME
-#    else
-#      cat /etc/passwd | grep "{{ zsh_user }}" | cut -d ':' -f6 | head -n1
-#    fi
-#  args:
-#    executable: /bin/bash
-#  register: zsh_user_dir
-#  check_mode: no
-#  changed_when: false
 
 - name: Check if wsl
   shell: |

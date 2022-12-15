@@ -15,10 +15,6 @@
   set_fact:
     zsh_version: "{{ zsh_register_version.stdout }}"
 
-#- name: Merge bundles lists
-#  set_fact:
-#    zsh_antigen_bundles: "{{ zsh_antigen_bundles }}"
-
 - name: Disable autoupdate if zsh_shared install
   set_fact:
     zsh_update_interval: 0
