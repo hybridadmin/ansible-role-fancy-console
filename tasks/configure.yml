@@ -1,4 +1,5 @@
 ---
+
 - name: Check zsh version
   shell: |
     set -o pipefail
@@ -13,10 +14,6 @@
 - name: Set zsh_version variable
   set_fact:
     zsh_version: "{{ zsh_register_version.stdout }}"
-
-- name: Merge bundles lists
-  set_fact:
-    zsh_antigen_bundles: "{{ zsh_antigen_bundles }}"
 
 - name: Disable autoupdate if zsh_shared install
   set_fact:
@@ -65,7 +62,7 @@
 
 - name: Create powerline-shell config dir
   file:
-    path: "{{ zsh_user_dir.stdout }}/.config/powerline-shell"
+    path: "{{ zsh_user_dir }}/.config/powerline-shell"
     state: directory
     mode: "0755"
   changed_when: False
@@ -74,7 +71,7 @@
 - name: Write powerline-shell config
   template:
     src: "powerline-shell/powerline-config.j2"
-    dest: "{{ zsh_user_dir.stdout }}/.config/powerline-shell/config.json"
+    dest: "{{ zsh_user_dir }}/.config/powerline-shell/config.json"
     owner: "{{ zsh_user }}"
     mode: "0644"
     group: "{{ zsh_user_group }}"
@@ -85,7 +82,7 @@
 - name: Write powerline-shell theme
   template:
     src: "powerline-shell/powerline-theme.j2"
-    dest: "{{ zsh_user_dir.stdout }}/.config/powerline-shell/powerline-theme.py"
+    dest: "{{ zsh_user_dir }}/.config/powerline-shell/powerline-theme.py"
     owner: "{{ zsh_user }}"
     mode: "0644"
     group: "{{ zsh_user_group }}"
@@ -93,32 +90,12 @@
   changed_when: False
   when: powerline_version == "shell"
 
-- name: Apply nanorc fix
-  block:
-    - name: Html conf comment fix in nanorc
-      replace:
-        path: "{{ item }}"
-        regexp: "(.*comment.*)"
-        replace: '#\1'
-      changed_when: False
-      loop:
-        - "{{ zsh_user_dir.stdout }}/.nano/html.nanorc"
-        - "{{ zsh_user_dir.stdout }}/.nano/html.j2.nanorc"
-
-    - name: Etc-hosts conf comment fix in nanorc
-      replace:
-        path: "{{ zsh_user_dir.stdout }}/.nano/etc-hosts.nanorc"
-        regexp: "normal"
-        replace: "white"
-      changed_when: False
-
-  when: ansible_os_family != 'Darwin'
-
 - name: Set zsh as default shell
   user:
     name: "{{ zsh_user }}"
     shell: /bin/zsh
   become: true
+  become_user: "root"
   when: not zsh_shared | bool
 
 - name: Check zsh env exists
@@ -132,7 +109,8 @@
     line: "skip_global_compinit=1"
     dest: /etc/zsh/zshenv
     state: present
-  become: yes
+  become: true
+  become_user: "root"
   when:
     - ansible_distribution == 'Ubuntu'
     - zsh_env_stats.stat.exists

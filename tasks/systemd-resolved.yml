@@ -1,4 +1,5 @@
 ---
+
 - name: "Get status of systemd-resolved service"
   shell: |
     set -o pipefail
@@ -56,7 +57,8 @@
   args:
     executable: /bin/bash
   changed_when: False
-  become: yes
+  become: true
+  become_user: "root"
   when:
     - ansible_virtualization_type == 'docker'
     - is_wsl == 'true'
@@ -75,7 +77,8 @@
     src: "wsl/wsl.conf.j2"
     dest: /etc/wsl.conf
     mode: "0644"
-  become: yes
+  become: true
+  become_user: "root"
   when:
     - ansible_virtualization_type == 'docker'
     - is_wsl == 'true'

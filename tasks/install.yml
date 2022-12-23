@@ -7,7 +7,7 @@
     state: directory
     mode: "0755"
   with_items:
-    - "{{ zsh_user_dir.stdout }}/.local/bin"
+    - "{{ zsh_user_dir }}/.local/bin"
 
 - name: List required packages
   debug:
@@ -18,16 +18,18 @@
     {{ os_pkg_manager }} name={{ pkg_requirements }} state=present {{ extra_pkg_mgr_cmds }}
     vars:
       packages: "{{ pkg_requirements }}"
+  become: true
+  become_user: "root"
   when: pkg_requirements is defined
 
 - name: Install latest yadm
   shell: |
     set -o pipefail
     {{ yadm_install_cmd }}
-    chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_dir.stdout }}/.yadm-project
+    chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_dir }}/.yadm-project
   args:
     executable: /bin/bash
-    creates: "{{ zsh_user_dir.stdout }}/.yadm-project"
+    creates: "{{ zsh_user_dir }}/.yadm-project"
   changed_when: false
   when: ansible_os_family == 'Debian' and ansible_os_family != 'Darwin'
 
@@ -37,7 +39,6 @@
     curl --silent "https://api.github.com/repos/garabik/grc/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
   args:
     executable: /bin/bash
-  become: true
   register: grc_version
   changed_when: false
   when: ansible_os_family != 'Darwin'
@@ -48,7 +49,7 @@
     dest: "/tmp/grc"
     version: "v{{ grc_version.stdout }}"
     force: yes
-  become: yes
+  become: true
   become_user: "{{ zsh_user }}"
   register: zsh_register_grc_clone
   changed_when: false
@@ -58,7 +59,8 @@
     cd /tmp/grc
     ./install.sh
   changed_when: False
-  become: yes
+  become: true
+  become_user: "root"
   when: ansible_os_family != 'Darwin'
 
 - name: Install powerline prompt
@@ -69,28 +71,26 @@
         curl --silent "https://api.github.com/repos/justjanne/powerline-go/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
       args:
         executable: /bin/bash
-      become: true
       register: poweline_go_version
       changed_when: false
       when: powerline_version == "go" and ansible_os_family != 'Darwin'
 
-    - name: Non-MacOS install powerline-go {{ poweline_go_version.stdout }}
+    - name: Install powerline-go from Github {{ poweline_go_version.stdout }}
       get_url:
         url: "https://github.com/justjanne/powerline-go/releases/download/v{{ poweline_go_version.stdout }}/powerline-go-{{ ansible_system | lower }}-amd64"
-        dest: "{{ zsh_user_dir.stdout }}/go/bin/powerline-go"
+        dest: "{{ zsh_user_dir }}/go/bin/powerline-go"
         mode: "a+x"
-      when: powerline_version == "go" and ansible_os_family != 'Darwin'
+      when: powerline_version == "go" and powerline_go_from_github
 
-    - name: MacOS - Install powerline-go
+    - name: Install powerline-go via cli {{ poweline_go_version.stdout }}
       shell: |
         set -o pipefail
-        /opt/homebrew/bin/go install github.com/justjanne/powerline-go@latest
+        {{ go_executable }} install github.com/justjanne/powerline-go@latest
       args:
         executable: /bin/bash
-      become: true
       register: poweline_go_version
       changed_when: false
-      when: powerline_version == "go" and ansible_os_family == 'Darwin'
+      when: powerline_version == "go" and not powerline_go_from_github
 
     - name: Install powerline-shell
       pip:
@@ -102,10 +102,10 @@
 - name: Install nano syntax highlighting
   git:
     repo: "https://github.com/scopatz/nanorc.git"
-    dest: "{{ zsh_user_dir.stdout }}/.nano"
+    dest: "{{ nano_install_path }}"
     version: "master"
     force: yes
-  become: yes
+  become: true
   become_user: "{{ zsh_user }}"
   changed_when: false
 
@@ -115,7 +115,7 @@
     dest: "{{ zsh_antigen_path }}/antigen"
     version: "{{ zsh_antigen_version }}"
     force: yes
-  become: yes
+  become: true
   become_user: "{{ zsh_user }}"
   register: zsh_register_antigen_clone
 
@@ -123,9 +123,9 @@
   git:
     repo: https://github.com/iwfmp/mc-solarized-skin.git
     version: master
-    dest: "{{ zsh_user_dir.stdout }}/.mc/lib/mc-solarized"
+    dest: "{{ zsh_user_dir }}/.mc/lib/mc-solarized"
     force: yes
-  become: yes
+  become: true
   become_user: "{{ zsh_user }}"
   when: zsh_mc_solarized_skin and not zsh_shared | bool
 
@@ -142,7 +142,6 @@
     curl --silent "https://api.github.com/repos/junegunn/fzf/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
   args:
     executable: /bin/bash
-  become: true
   register: zsh_fzf_version
   changed_when: false
   when: ansible_os_family != 'Darwin'
@@ -154,7 +153,8 @@
     mode: "0755"
     remote_src: yes
     creates: /usr/local/bin/fzf
-  become: yes
+  become: true
+  become_user: "root"
   when:
     - zsh_register_fzf_command.rc == 1
     - ansible_os_family != 'Darwin'

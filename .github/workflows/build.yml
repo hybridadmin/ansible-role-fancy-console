@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: "hybridadmin.fancy_console"
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.9"
 
@@ -69,12 +69,12 @@ jobs:
       ANSIBLE_LOAD_CALLBACK_PLUGINS: true
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: "hybridadmin.fancy_console"
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.9"
 

@@ -28,7 +28,7 @@ Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS 12.3, CentO
 
 ## screen capture
 
-![screen capture](https://github.com/hybridadmin/ansible-role-fancy-console/raw/master/console.png?raw=true)
+![screen capture](./console.png?raw=true)
 
 ## Midnight Commander Solarized Dark skin
 

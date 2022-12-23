@@ -1,5 +1,10 @@
 ---
-skip_golang_install: true
+
+nano_install_path: "{% if ansible_user_dir == 'root' %}/usr/share/nano-syntax-highlighting{% else %}$HOME/.nano{% endif %}"
+
+skip_golang_install: false
+go_executable: "{% if ansible_os_family == 'Darwin' %}/opt/homebrew/bin/go{% else %}/usr/local/go/bin/go{% endif %}"
+powerline_go_from_github: false
 
 os_pkg_manager: "{% if 'Darwin' in ansible_os_family %}brew{% else %}{{ ansible_pkg_mgr }}{% endif %}"
 
@@ -15,7 +20,7 @@ zsh_fzf_url: "https://github.com/junegunn/fzf/releases/download/{{ zsh_fzf_versi
 zsh_antigen_fzf_path: "{{ zsh_antigen_path }}/repos/https-COLON--SLASH--SLASH-github.com-SLASH-junegunn-SLASH-fzf.git"
 zsh_fzf_default_opts: "--height={{ zsh_fzf_height }}{% if zsh_fzf_reverse %} --layout=reverse{% endif %} --info=inline{% if zsh_fzf_border %} --border{% endif %} --margin=1 --padding=1"
 
-yadm_install_cmd: "git clone https://github.com/TheLocehiliosan/yadm.git {{ zsh_user_dir.stdout }}/.yadm-project && ln -s {{ zsh_user_dir.stdout }}/.yadm-project/yadm {{ zsh_user_dir.stdout }}/.local/bin/yadm"
+yadm_install_cmd: "git clone https://github.com/TheLocehiliosan/yadm.git {{ zsh_user_dir }}/.yadm-project && ln -s {{ zsh_user_dir }}/.yadm-project/yadm {{ zsh_user_dir }}/.local/bin/yadm"
 
 yadm_repo_uri: "{% if 'Fedora' in ansible_distribution %}
   https://copr.fedorainfracloud.org/coprs/cdayjr/yadm/repo/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/cdayjr-yadm-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.repo
