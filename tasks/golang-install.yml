@@ -24,6 +24,7 @@
   when: not skip_golang_install and ansible_os_family != 'Darwin'
 
 - name: Install golang
+  when: ansible_os_family != 'Darwin'
   block:
     - name: Remove old installation of Go
       file:
@@ -50,8 +51,6 @@
         - not skip_golang_install
         - not latest_go_version.stdout == go_version.stdout
         - go_version.stdout | length >= 0
-
-  when: ansible_os_family != 'Darwin'
 
 - name: Create go directories in home
   file:

@@ -14,30 +14,30 @@
   register: is_wsl
 
 - name: Extra repo setup
-  include: repo-setup.yml
+  include_tasks: repo-setup.yml
   when: ansible_os_family != 'Darwin'
 
 - name: Systemd-resolved pre-requisites
-  include: systemd-resolved.yml
+  include_tasks: systemd-resolved.yml
   when: ansible_os_family != 'Darwin'
 
 - name: Python pip pre-requisites
-  include: python-install.yml
+  include_tasks: python-install.yml
 
 - name: Golang installation
-  include: golang-install.yml
+  include_tasks: golang-install.yml
   when: powerline_version == "go"
 
 - name: Installation steps
-  include: install.yml
+  include_tasks: install.yml
   tags: [zsh, install]
 
 - name: Configuration steps
-  include: configure.yml
+  include_tasks: configure.yml
   tags: [zsh, configure]
 
 - name: Post installation steps
-  include: post-install.yml
+  include_tasks: post-install.yml
   tags: [zsh, install, post_install]
 
 - name: Reset antigen cache

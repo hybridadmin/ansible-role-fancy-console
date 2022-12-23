@@ -75,14 +75,14 @@
       changed_when: false
       when: powerline_version == "go" and ansible_os_family != 'Darwin'
 
-    - name: Install powerline-go {{ poweline_go_version.stdout }} from Github
+    - name: Install powerline-go from Github {{ poweline_go_version.stdout }}
       get_url:
         url: "https://github.com/justjanne/powerline-go/releases/download/v{{ poweline_go_version.stdout }}/powerline-go-{{ ansible_system | lower }}-amd64"
         dest: "{{ zsh_user_dir }}/go/bin/powerline-go"
         mode: "a+x"
       when: powerline_version == "go" and powerline_go_from_github
 
-    - name: Install powerline-go {{ poweline_go_version.stdout }} via cli
+    - name: Install powerline-go via cli {{ poweline_go_version.stdout }}
       shell: |
         set -o pipefail
         {{ go_executable }} install github.com/justjanne/powerline-go@latest
