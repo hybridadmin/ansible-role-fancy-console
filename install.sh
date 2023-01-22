@@ -23,6 +23,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        xcode-select --install
         brew install ansible git wget gpg yadm gnu-sed pinentry-mac
 else
         echo "Unknown OS found"
