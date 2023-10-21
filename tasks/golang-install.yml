@@ -3,7 +3,7 @@
 - name: Get latest golang version
   shell: |
     set -o pipefail
-    curl 'https://go.dev/VERSION?m=text' | sed 's/go//'
+    curl 'https://go.dev/VERSION?m=text' | sed 's/go//' | head -n1
   args:
     executable: /bin/bash
   ignore_errors: yes
