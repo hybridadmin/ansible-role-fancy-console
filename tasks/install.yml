@@ -20,7 +20,7 @@
 #    packages: "{{ pkg_requirements }}"
   package:
     name: "{{ pkg_requirements }}"
-    state: latest
+    state: present
   become: true
   become_user: "root"
   when: pkg_requirements is defined and (ansible_os_family != 'Darwin')
