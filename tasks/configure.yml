@@ -96,7 +96,7 @@
     shell: /bin/zsh
   become: true
   become_user: "root"
-  when: not zsh_shared | bool
+  when: not zsh_shared | bool and (ansible_os_family != 'Darwin')
 
 - name: Check zsh env exists
   stat:

@@ -20,7 +20,13 @@
       packages: "{{ pkg_requirements }}"
   become: true
   become_user: "root"
-  when: pkg_requirements is defined
+  when: pkg_requirements is defined and (ansible_os_family != 'Darwin')
+
+- name: Install brew packages
+  community.general.homebrew:
+    name: "{{ pkg_requirements }}"
+    state: present
+  when: pkg_requirements is defined and (ansible_os_family == 'Darwin')
 
 - name: Install latest yadm
   shell: |
@@ -41,7 +47,7 @@
     executable: /bin/bash
   register: grc_version
   changed_when: false
-  when: ansible_os_family != 'Darwin'
+#  when: ansible_os_family != 'Darwin'
 
 - name: Clone garabik/grc {{ grc_version.stdout }}
   git:
@@ -61,7 +67,7 @@
   changed_when: False
   become: true
   become_user: "root"
-  when: ansible_os_family != 'Darwin'
+#  when: ansible_os_family != 'Darwin'
 
 - name: Install powerline prompt
   block:
