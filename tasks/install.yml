@@ -14,10 +14,13 @@
     msg: "{{ pkg_requirements }}"
 
 - name: Install additional packages
-  action: >
-    {{ os_pkg_manager }} name={{ pkg_requirements }} state=present {{ extra_pkg_mgr_cmds }}
-  vars:
-    packages: "{{ pkg_requirements }}"
+#  action: >
+#    {{ os_pkg_manager }} name={{ pkg_requirements }} state=present {{ extra_pkg_mgr_cmds }}
+#  vars:
+#    packages: "{{ pkg_requirements }}"
+  package:
+    name: "{{ pkg_requirements }}"
+    state: latest
   become: true
   become_user: "root"
   when: pkg_requirements is defined and (ansible_os_family != 'Darwin')
