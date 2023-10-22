@@ -1,6 +1,6 @@
 ## Fancy-Console Role
 
-![CI](https://github.com/hybridadmin/ansible-role-fancy-console/workflows/CI/badge.svg?branch=master)
+[![Release](https://github.com/hybridadmin/ansible-role-fancy-console/actions/workflows/release.yml/badge.svg)](https://github.com/hybridadmin/ansible-role-fancy-console/actions/workflows/release.yml)
 ![Ansible Role](https://img.shields.io/ansible/role/d/45707)
 ![Ansible Quality Score](https://img.shields.io/ansible/quality/45707)
 
