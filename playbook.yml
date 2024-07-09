@@ -10,6 +10,7 @@
       - MichaelAquilina/zsh-you-should-use
       - oldratlee/hacker-quotes
       - horosgrisa/mysql-colorize
+      - terraform
     zsh_autosuggestions_bind_key: "^U"
   roles:
     - hybridadmin.fancy_console
