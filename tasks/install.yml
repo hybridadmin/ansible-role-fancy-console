@@ -144,14 +144,14 @@
 - name: Get latest junegunn/fzf version
   shell: |
     set -o pipefail
-    curl --silent "https://api.github.com/repos/junegunn/fzf/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
+    curl --silent "https://api.github.com/repos/junegunn/fzf/releases/latest" |  grep -E "browser_download_url.+linux.+{{ zsh_fzf_arch }}.tar.gz" |sed -E 's/.*"([^"]+)".*/\1/'
   args:
     executable: /bin/bash
-  register: zsh_fzf_version
+  register: zsh_fzf_url
   changed_when: false
   when: ansible_os_family != 'Darwin'
 
-- name: Download junegunn/fzf {{ zsh_fzf_version.stdout }}
+- name: Downloading junegunn/fzf {{ zsh_fzf_url.stdout }}
   unarchive:
     src: "{{ zsh_fzf_url }}"
     dest: /usr/local/bin

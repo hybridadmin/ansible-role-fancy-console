@@ -48,8 +48,8 @@ jobs:
         distro:
           - image: centos
             tag: 8
-          - image: centos
-            tag: 7
+          - image: ubuntu
+            tag: jammy
           - image: ubuntu
             tag: focal
           - image: ubuntu
@@ -60,8 +60,6 @@ jobs:
             tag: 34
           - image: fedora
             tag: 33
-          - image: amazonlinux
-            tag: 2
     env:
       ANSIBLE_CALLBACK_WHITELIST: profile_tasks
       ANSIBLE_STDOUT_CALLBACK: yaml
