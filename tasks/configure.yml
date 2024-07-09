@@ -60,35 +60,35 @@
     backup: yes
   when: zsh_antigen_installed_version | length > 0
 
-- name: Create powerline-shell config dir
-  file:
-    path: "{{ zsh_user_dir }}/.config/powerline-shell"
-    state: directory
-    mode: "0755"
-  changed_when: False
-  when: powerline_version == "shell"
+#- name: Create powerline-shell config dir
+#  file:
+#    path: "{{ zsh_user_dir }}/.config/powerline-shell"
+#    state: directory
+#    mode: "0755"
+#  changed_when: False
+#  when: powerline_version == "shell"
 
-- name: Write powerline-shell config
-  template:
-    src: "powerline-shell/powerline-config.j2"
-    dest: "{{ zsh_user_dir }}/.config/powerline-shell/config.json"
-    owner: "{{ zsh_user }}"
-    mode: "0644"
-    group: "{{ zsh_user_group }}"
-    backup: yes
-  changed_when: False
-  when: powerline_version == "shell"
+#- name: Write powerline-shell config
+#  template:
+#    src: "powerline-shell/powerline-config.j2"
+#    dest: "{{ zsh_user_dir }}/.config/powerline-shell/config.json"
+#    owner: "{{ zsh_user }}"
+#    mode: "0644"
+#    group: "{{ zsh_user_group }}"
+#    backup: yes
+#  changed_when: False
+#  when: powerline_version == "shell"
 
-- name: Write powerline-shell theme
-  template:
-    src: "powerline-shell/powerline-theme.j2"
-    dest: "{{ zsh_user_dir }}/.config/powerline-shell/powerline-theme.py"
-    owner: "{{ zsh_user }}"
-    mode: "0644"
-    group: "{{ zsh_user_group }}"
-    backup: yes
-  changed_when: False
-  when: powerline_version == "shell"
+#- name: Write powerline-shell theme
+#  template:
+#    src: "powerline-shell/powerline-theme.j2"
+#    dest: "{{ zsh_user_dir }}/.config/powerline-shell/powerline-theme.py"
+#    owner: "{{ zsh_user }}"
+#    mode: "0644"
+#    group: "{{ zsh_user_group }}"
+#    backup: yes
+#  changed_when: False
+#  when: powerline_version == "shell"
 
 - name: Set zsh as default shell
   user:

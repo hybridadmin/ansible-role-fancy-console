@@ -97,12 +97,12 @@
       changed_when: false
       when: powerline_version == "go" and not powerline_go_from_github
 
-    - name: Install powerline-shell
-      pip:
-        name: powerline-shell
-        executable: "{{ pip3_command }}"
-      when:
-        - powerline_version == "shell"
+#    - name: Install powerline-shell
+#      pip:
+#        name: powerline-shell
+#        executable: "{{ pip3_command }}"
+#      when:
+#        - powerline_version == "shell"
 
 - name: Install nano syntax highlighting
   git:
