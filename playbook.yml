@@ -1,6 +1,5 @@
 ---
-
-- name: Deploy
+- name: Run Deploy
   hosts: localhost
   vars:
     powerline_version: "go"
