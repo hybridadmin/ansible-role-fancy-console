@@ -2,7 +2,7 @@
 - name: Run Deploy
   hosts: localhost
   vars:
-    powerline_version: "go"
+    powerline_version: ""
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
