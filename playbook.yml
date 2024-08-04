@@ -3,6 +3,7 @@
   hosts: localhost
   vars:
     powerline_version: ""
+    tmux_config: false
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
