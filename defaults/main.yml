@@ -2,7 +2,7 @@
 zsh_user: "{{ ansible_user_id }}"
 zsh_user_dir: "{{ ansible_user_dir }}"
 
-powerline_version: "" # Set `go` for powershell-go config
+prompt_type: "powershell-go" # Possible values: 'powershell-go' or 'powerlevel' or 'none'
 
 # .zshrc config
 zsh_hist_stamps: yyyy-mm-dd

@@ -66,7 +66,7 @@
 #    state: directory
 #    mode: "0755"
 #  changed_when: False
-#  when: powerline_version == "shell"
+#  when: prompt_type == "powerline-shell"
 
 #- name: Write powerline-shell config
 #  template:
@@ -77,7 +77,7 @@
 #    group: "{{ zsh_user_group }}"
 #    backup: yes
 #  changed_when: False
-#  when: powerline_version == "shell"
+#  when: prompt_type == "powerline-shell"
 
 #- name: Write powerline-shell theme
 #  template:
@@ -88,7 +88,7 @@
 #    group: "{{ zsh_user_group }}"
 #    backup: yes
 #  changed_when: False
-#  when: powerline_version == "shell"
+#  when: prompt_type == "powerline-shell"
 
 - name: Set zsh as default shell
   user:

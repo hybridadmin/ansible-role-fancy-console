@@ -8,7 +8,7 @@
   vars:
     zsh_user: "zopfli"
     tmux_config: false
-    powerline_version: ""
+    prompt_type: "none"
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized

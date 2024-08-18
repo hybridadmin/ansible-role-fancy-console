@@ -2,7 +2,7 @@
 - name: Run Deploy
   hosts: localhost
   vars:
-    powerline_version: ""
+    prompt_type: "none"
     tmux_config: false
     zsh_antigen_bundles_extras:
       - nvm
