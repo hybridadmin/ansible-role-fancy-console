@@ -16,20 +16,21 @@ defaults:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: "hybridadmin.fancy_console"
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.9"
 
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible-lint
+        run: |
+          pip3 install yamllint ansible-lint
 
       - name: Lint code.
         run: |
@@ -40,7 +41,7 @@ jobs:
     needs:
       - lint
     name: Molecule
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 5
@@ -67,17 +68,18 @@ jobs:
       ANSIBLE_LOAD_CALLBACK_PLUGINS: true
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: "hybridadmin.fancy_console"
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: "3.12"
 
       - name: Install test dependencies.
-        run: pip3 install ansible==6.6.0 molecule-docker==2.1.0
+        run: |
+          pip3 install ansible==6.6.0 molecule-docker==2.1.0
 
       - name: Run Molecule tests.
         run: molecule test
