@@ -4,14 +4,14 @@
 ![Ansible Role](https://img.shields.io/ansible/role/d/12641)
 ![Ansible Quality Score](https://img.shields.io/ansible/quality/12641)
 
-Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, CentOS 7, CentOS 8, Fedora 33, Fedora 34, Amazon Linux 2.
+Tested on Debian 10, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, macOS Ventura, macOS Sonoma, CentOS 8, Fedora 33, Fedora 34.
 
 ## Includes:
 
 - [`zsh`](http://zsh.sourceforge.net)
 - [`antigen`](https://github.com/zsh-users/antigen)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
-- [`powerline-go`](https://github.com/justjanne/powerline-go) or [`powerline-shell`](https://github.com/b-ryan/powerline-shell)
+- [`powerline-go`](https://github.com/justjanne/powerline-go) or [`powerlevel10k`](https://github.com/romkatv/powerlevel10k) or `none` (skip prompt setup)
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
 - [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [`unixorn/autoupdate-antigen.zsh plugin`](https://github.com/unixorn/autoupdate-antigen.zshplugin)
@@ -27,8 +27,7 @@ Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, Ce
 - install only plugins that useful for your machine. For example, plugin `docker` will not install if you have not Docker
 
 ## screen capture
-
-![screen capture](./console.png?raw=true)
+- TBC
 
 ## Midnight Commander Solarized Dark skin
 
@@ -94,7 +93,7 @@ sudo ansible-galaxy install hybridadmin.fancy_console --force
 ```yaml
 - hosts: all
   vars:
-    powerline_version: "go"
+    prompt_type: "powerline-go"
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized

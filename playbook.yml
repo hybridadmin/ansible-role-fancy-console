@@ -1,15 +1,16 @@
 ---
-
-- name: Deploy
+- name: Run Deploy
   hosts: localhost
   vars:
-    powerline_version: "go"
+    prompt_type: "none"  # Possible values: 'powershell-go' or 'powerlevel' or 'none'
+    tmux_config: false
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
       - MichaelAquilina/zsh-you-should-use
       - oldratlee/hacker-quotes
       - horosgrisa/mysql-colorize
+      - terraform
     zsh_autosuggestions_bind_key: "^U"
   roles:
     - hybridadmin.fancy_console

@@ -21,11 +21,13 @@ if [ $UPDATE_ZSH_DAYS -gt 0 ]; then
         zstyle :omz:update frequency $UPDATE_ZSH_DAYS
 fi
 
+{%- if tmux_config|bool -%}
 # TMUX - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux
 if [ -f ~/.tmux.conf ] || [ -f ~/.tmux.conf.local ]; then
 	ZSH_TMUX_AUTOSTART=true
 	ZSH_TMUX_AUTOCONNECT=false
 fi
+{%- endif -%}
 
 # ADOTDIR="{{ zsh_antigen_path_compat }}"
 {% if zsh_shared %}
@@ -86,6 +88,10 @@ antigen bundle {{ bundle_item }}
 {% endfor %}
 {% endif %}
 
+{% if prompt_type == "powerlevel" %}
+antigen theme romkatv/powerlevel10k
+{% endif %}
+
 antigen apply
 
 ###
@@ -133,7 +139,7 @@ declare -p FZF_WIDGET_OPTS > /dev/null 2>&1 && FZF_WIDGET_OPTS[insert-history]="
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE={{ zsh_autosuggestions_max_length }}
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240" # gray highlight
 
-{% if powerline_version == "go" %}
+{% if (prompt_type is defined) and prompt_type == "powerline-go" %}
 ## powerline-go config
 POWERLINE_BIN="$(which powerline-go)"
 POWERLINE_FONT_MODE="patched"
@@ -178,24 +184,12 @@ if [ "$TERM" != "linux" ]; then
     install_powerline_precmd
 fi
 
+{% elif prompt_type == "powerline-go" %}
+## using powerlevel10k
+
 {% else %}
-## powerline-shell config
-function powerline_precmd() {
-    PS1="$(powerline-shell --shell zsh $?)"
-}
+## use custom prompt
 
-function install_powerline_precmd() {
-  for s in "${precmd_functions[@]}"; do
-    if [ "$s" = "powerline_precmd" ]; then
-      return
-    fi
-  done
-  precmd_functions+=(powerline_precmd)
-}
-
-if [ "$TERM" != "linux" ]; then
-    install_powerline_precmd
-fi
 {% endif %}
 
 # Aliases

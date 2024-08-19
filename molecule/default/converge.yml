@@ -2,12 +2,12 @@
 
 - name: Converge
   hosts: all
-#  remote_user: root
   any_errors_fatal: true
 
   vars:
     zsh_user: "zopfli"
-    powerline_version: "go"
+    tmux_config: false
+    prompt_type: "powerline-go" # Possible values: 'powershell-go' or 'powerlevel' or 'none'
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
@@ -24,6 +24,3 @@
     - name: "Include fancy_console role"
       include_role:
         name: "hybridadmin.fancy_console"
-#        apply:
-#          become: true
-#          become_user: "{{ zsh_user }}"

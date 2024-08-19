@@ -78,14 +78,14 @@
         executable: /bin/bash
       register: poweline_go_version
       changed_when: false
-      when: powerline_version == "go" and ansible_os_family != 'Darwin'
+      when: prompt_type == "powerline-go" and ansible_os_family != 'Darwin'
 
     - name: Install powerline-go from Github {{ poweline_go_version.stdout }}
       get_url:
         url: "https://github.com/justjanne/powerline-go/releases/download/v{{ poweline_go_version.stdout }}/powerline-go-{{ ansible_system | lower }}-amd64"
         dest: "{{ zsh_user_dir }}/go/bin/powerline-go"
         mode: "a+x"
-      when: powerline_version == "go" and powerline_go_from_github
+      when: prompt_type == "powerline-go" and powerline_go_from_github
 
     - name: Install powerline-go via cli {{ poweline_go_version.stdout }}
       shell: |
@@ -95,14 +95,7 @@
         executable: /bin/bash
       register: poweline_go_version
       changed_when: false
-      when: powerline_version == "go" and not powerline_go_from_github
-
-    - name: Install powerline-shell
-      pip:
-        name: powerline-shell
-        executable: "{{ pip3_command }}"
-      when:
-        - powerline_version == "shell"
+      when: prompt_type == "powerline-go" and not powerline_go_from_github
 
 - name: Install nano syntax highlighting
   git:
@@ -144,16 +137,16 @@
 - name: Get latest junegunn/fzf version
   shell: |
     set -o pipefail
-    curl --silent "https://api.github.com/repos/junegunn/fzf/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
+    curl --silent "https://api.github.com/repos/junegunn/fzf/releases/latest" |  grep -E "browser_download_url.+linux.+{{ zsh_fzf_arch }}.tar.gz" |sed -E 's/.*"([^"]+)".*/\1/'
   args:
     executable: /bin/bash
-  register: zsh_fzf_version
+  register: zsh_fzf_url
   changed_when: false
   when: ansible_os_family != 'Darwin'
 
-- name: Download junegunn/fzf {{ zsh_fzf_version.stdout }}
+- name: Downloading junegunn/fzf {{ zsh_fzf_url.stdout }}
   unarchive:
-    src: "{{ zsh_fzf_url }}"
+    src: "{{ zsh_fzf_url.stdout }}"
     dest: /usr/local/bin
     mode: "0755"
     remote_src: yes
