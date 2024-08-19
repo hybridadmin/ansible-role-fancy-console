@@ -97,13 +97,6 @@
       changed_when: false
       when: prompt_type == "powerline-go" and not powerline_go_from_github
 
-#    - name: Install powerline-shell
-#      pip:
-#        name: powerline-shell
-#        executable: "{{ pip3_command }}"
-#      when:
-#        - prompt_type == "powerline-shell"
-
 - name: Install nano syntax highlighting
   git:
     repo: "https://github.com/scopatz/nanorc.git"
