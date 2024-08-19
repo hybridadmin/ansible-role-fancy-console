@@ -2,7 +2,7 @@
 - name: Run Deploy
   hosts: localhost
   vars:
-    prompt_type: "none"
+    prompt_type: "none"  # Possible values: 'powershell-go' or 'powerlevel' or 'none'
     tmux_config: false
     zsh_antigen_bundles_extras:
       - nvm

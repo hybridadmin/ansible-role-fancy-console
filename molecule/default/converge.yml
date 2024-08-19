@@ -8,7 +8,7 @@
   vars:
     zsh_user: "zopfli"
     tmux_config: false
-    prompt_type: "powerline-go"
+    prompt_type: "powerline-go" # Possible values: 'powershell-go' or 'powerlevel' or 'none'
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized

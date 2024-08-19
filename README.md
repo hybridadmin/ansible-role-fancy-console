@@ -4,7 +4,7 @@
 ![Ansible Role](https://img.shields.io/ansible/role/d/12641)
 ![Ansible Quality Score](https://img.shields.io/ansible/quality/12641)
 
-Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, CentOS 7, CentOS 8, Fedora 33, Fedora 34, Amazon Linux 2.
+Tested on Debian 10, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, macOS Ventura, macOS Sonoma, CentOS 8, Fedora 33, Fedora 34.
 
 ## Includes:
 
@@ -27,8 +27,7 @@ Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, Ce
 - install only plugins that useful for your machine. For example, plugin `docker` will not install if you have not Docker
 
 ## screen capture
-
-![screen capture](./console.png?raw=true)
+- TBC
 
 ## Midnight Commander Solarized Dark skin
 
