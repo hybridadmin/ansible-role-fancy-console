@@ -27,6 +27,7 @@ if [ -f ~/.tmux.conf ] || [ -f ~/.tmux.conf.local ]; then
 	ZSH_TMUX_AUTOCONNECT=false
 fi
 
+{%- zsh_plugin_manager == 'antigen' %}
 # ADOTDIR="{{ zsh_antigen_path_compat }}"
 {% if zsh_shared %}
 ANTIGEN_AUTO_CONFIG=false # disable updates
@@ -87,7 +88,7 @@ antigen bundle {{ bundle_item }}
 {% endif %}
 
 antigen apply
-
+{%- endif %}
 ###
 
 {% if not zsh_share_history %}

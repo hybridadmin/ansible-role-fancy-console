@@ -27,7 +27,7 @@
   failed_when: false
   changed_when: false
   check_mode: no
-  when: item.command is defined
+  when: item.command is defined and (zsh_plugin_manager == 'antigen')
   register: zsh_register_commands_exists
 
 - name: Merge hotkeys lists
@@ -45,10 +45,12 @@
   failed_when: false
   check_mode: no
   tags: configure
+  when: zsh_plugin_manager == 'antigen'
 
 - name: Set zsh_antigen_installed_version variable
   set_fact:
     zsh_antigen_installed_version: "{{ zsh_register_antigen_version.stdout }}"
+  when: zsh_plugin_manager == 'antigen'
 
 - name: Write .zshrc config
   template:
@@ -58,7 +60,7 @@
     mode: "0644"
     group: "{{ zsh_user_group }}"
     backup: yes
-  when: zsh_antigen_installed_version | length > 0
+#  when: zsh_antigen_installed_version | length > 0
 
 - name: Create powerline-shell config dir
   file:

@@ -47,3 +47,4 @@
   changed_when: false
   failed_when: false
   tags: always
+  when: zsh_plugin_manager == 'antigen'

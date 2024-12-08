@@ -123,6 +123,7 @@
   become: true
   become_user: "{{ zsh_user }}"
   register: zsh_register_antigen_clone
+  when: zsh_plugin_manager == 'antigen'
 
 - name: Clone iwfmp/mc-solarized-skin
   git:
@@ -171,3 +172,4 @@
     group: "{{ zsh_user_group }}"
     recurse: yes
   changed_when: false
+  when: zsh_plugin_manager == 'antigen'
