@@ -7,6 +7,7 @@
   args:
     executable: /bin/bash
   when: zsh_plugin_manager == 'antigen'
+  changed_when: false
 
 - name: Reset antigen cache
   command: "/bin/zsh -c 'source {{ zsh_config }}; antigen reset'"
