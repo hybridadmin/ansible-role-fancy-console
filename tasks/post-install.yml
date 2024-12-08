@@ -1,6 +1,6 @@
 ---
 
- - name: Print zshrc config
+- name: Print zshrc config
   shell: |
     set -o pipefail
     cat "{{ zsh_config }}"
