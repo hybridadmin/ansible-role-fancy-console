@@ -81,7 +81,7 @@ jobs:
           python-version: "3.9"
 
       - name: Install test dependencies.
-        run: pip3 install ansible==6.6.0 molecule-docker==2.1.0
+        run: pip3 install ansible==9.9.0 molecule-docker==2.1.0
 
       - name: Run Molecule tests.
         run: molecule test
