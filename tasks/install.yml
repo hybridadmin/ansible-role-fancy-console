@@ -125,6 +125,17 @@
   register: zsh_register_antigen_clone
   when: zsh_plugin_manager == 'antigen'
 
+- name: Clone antibody {{ zsh_antidote_version }}
+  git:
+    repo: https://github.com/mattmc3/antidote.git
+    dest: "{{ zsh_user_dir }}/antidote"
+    version: "{{ zsh_antidote_version }}"
+    force: yes
+  become: true
+  become_user: "{{ zsh_user }}"
+  register: zsh_register_antibody_clone
+  when: zsh_plugin_manager == 'antibody'
+
 - name: Clone iwfmp/mc-solarized-skin
   git:
     repo: https://github.com/iwfmp/mc-solarized-skin.git

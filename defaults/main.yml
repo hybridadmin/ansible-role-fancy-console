@@ -3,6 +3,8 @@ zsh_user: "{{ ansible_user_id }}"
 zsh_user_dir: "{{ ansible_user_dir }}"
 
 zsh_plugin_manager: antibody
+zsh_antidote_version: main
+zsh_antidote_path: "{{ zsh_user_dir }}/.antidote"
 
 powerline_version: "go"
 
