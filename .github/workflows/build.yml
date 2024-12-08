@@ -5,7 +5,7 @@ name: CI
   push:
     branches:
       - master
-      - tc/more-mac-mods
+      - main
   schedule:
     - cron: "0 6 * * 3"
 
@@ -16,7 +16,7 @@ defaults:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v3
@@ -48,8 +48,10 @@ jobs:
         distro:
           - image: centos
             tag: 8
-          - image: centos
-            tag: 7
+          - image: ubuntu
+            tag: noble
+          - image: ubuntu
+            tag: jammy
           - image: ubuntu
             tag: focal
           - image: ubuntu

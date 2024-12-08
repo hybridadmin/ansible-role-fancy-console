@@ -127,7 +127,9 @@
   become: true
   become_user: "{{ zsh_user }}"
   register: zsh_register_antibody_clone
-  when: zsh_plugin_manager == 'antibody'
+  when:
+    - ansible_os_family != 'Darwin'
+    - zsh_plugin_manager == 'antibody'
 
 - name: Clone iwfmp/mc-solarized-skin
   git:
