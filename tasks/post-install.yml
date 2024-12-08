@@ -1,4 +1,13 @@
 ---
+
+ - name: Print zshrc config
+  shell: |
+    set -o pipefail
+    cat "{{ zsh_config }}"
+  args:
+    executable: /bin/bash
+  when: zsh_plugin_manager == 'antigen'
+
 - name: Reset antigen cache
   command: "/bin/zsh -c 'source {{ zsh_config }}; antigen reset'"
   become: true
