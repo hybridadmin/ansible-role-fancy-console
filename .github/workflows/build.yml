@@ -78,7 +78,7 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
+          python-version: "3.12"
 
       - name: Install test dependencies.
         run: pip3 install ansible==9.9.0 molecule-docker==2.1.0
