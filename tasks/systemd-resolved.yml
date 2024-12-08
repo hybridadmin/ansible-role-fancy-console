@@ -7,7 +7,7 @@
   args:
     executable: /bin/bash
   check_mode: no
-  failed_when: systemd_resolved_status.rc >= 2
+  failed_when: systemd_resolved_status.rc > 4
   changed_when: false
   register: systemd_resolved_status
 
