@@ -11,7 +11,7 @@ Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, Ce
 - [`zsh`](http://zsh.sourceforge.net)
 - [`antigen`](https://github.com/zsh-users/antigen) or [`antibody`](https://antidote.sh/)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
-- [`powerline-go`](https://github.com/justjanne/powerline-go) or `none` for your own custom prompt
+- [`powerline-go`](https://github.com/justjanne/powerline-go)
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
 - [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [`unixorn/autoupdate-antigen.zsh plugin`](https://github.com/unixorn/autoupdate-antigen.zshplugin)
