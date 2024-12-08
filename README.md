@@ -9,7 +9,7 @@ Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, Ce
 ## Includes:
 
 - [`zsh`](http://zsh.sourceforge.net)
-- [`antigen`](https://github.com/zsh-users/antigen)
+- [`antigen`](https://github.com/zsh-users/antigen) or [`antibody`](https://antidote.sh/)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
 - [`powerline-go`](https://github.com/justjanne/powerline-go) or [`powerline-shell`](https://github.com/b-ryan/powerline-shell)
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
@@ -36,20 +36,7 @@ If you using Solarized Dark scheme and `mc`, you should want to install skin, th
 
 ## Known bugs
 
-### `su username` caused errors
-
-See [`antigen issue`](https://github.com/zsh-users/antigen/issues/136).
-If both root and su user using antigen, you should use `su - username` in place of `su username`.
-
-Or you can use bundled alias `suser`.
-
-Also, you can try to fix it, add to `~/.zshrc.local`:
-
-```
-alias su='su -'
-```
-
-But this alias can break you scripts, that using `su`.
+>N/A
 
 ## Install for real machine
 
