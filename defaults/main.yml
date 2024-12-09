@@ -87,13 +87,13 @@ zsh_hotkeys:
   - { hotkey: '^[m', action: copy-earlier-word }
 
   # fzf-widgets
-  - { hotkey: '^@' ,   action: fzf-select-widget,            bundle: "{{ fzf_widgets }}" }
-  - { hotkey: '^@.' ,  action: fzf-edit-dotfiles,            bundle: "{{ fzf_widgets }}" }
+  - { hotkey: '^@',    action: fzf-select-widget,            bundle: "{{ fzf_widgets }}" }
+  - { hotkey: '^@.',   action: fzf-edit-dotfiles,            bundle: "{{ fzf_widgets }}" }
   - { hotkey: '^@c',   action: fzf-change-directory,         bundle: "{{ fzf_widgets }}" }
   - { hotkey: '^@f',   action: fzf-edit-files,               bundle: "{{ fzf_widgets }}" }
   - { hotkey: '^@k',   action: fzf-kill-processes,           bundle: "{{ fzf_widgets }}" }
   - { hotkey: '^@s',   action: fzf-exec-ssh,                 bundle: "{{ fzf_widgets }}" }
-  - { hotkey: '^\' ,   action: fzf-change-recent-directory,  bundle: "{{ fzf_widgets }}" }
+  - { hotkey: '^\',    action: fzf-change-recent-directory,  bundle: "{{ fzf_widgets }}" }
   - { hotkey: '^r',    action: fzf-insert-history,           bundle: "{{ fzf_widgets }}" }
   - { hotkey: '^xf',   action: fzf-insert-files,             bundle: "{{ fzf_widgets }}" }
   - { hotkey: '^xd',   action: fzf-insert-directory,         bundle: "{{ fzf_widgets }}" }
