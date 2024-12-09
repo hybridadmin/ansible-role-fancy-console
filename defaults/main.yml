@@ -23,8 +23,7 @@ zsh_path:
   - /sbin
   - /bin
   - "~/.local/bin"
-  - /usr/games
-  - /usr/local/games
+  - "~/.venv/bin"
 
 zsh_load_etc_profile: true
 
