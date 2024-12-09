@@ -63,6 +63,8 @@
         set -o pipefail
         cd /tmp/grc
         ./install.sh
+      args:
+        executable: /bin/bash
       changed_when: False
       become: true
       become_user: "root"
