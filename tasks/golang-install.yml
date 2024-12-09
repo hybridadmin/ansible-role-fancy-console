@@ -65,9 +65,9 @@
     - "{{ zsh_user_dir }}/go/src"
     - "{{ zsh_user_dir }}/go/pkg"
 
-- name: Modify .bashrc
+- name: "Modify {{ item }}"
   blockinfile:
-    dest: "$HOME/.bashrc"
+    dest: "{{ item }}"
     mode: "0644"
     block: |
       export GOPATH=$HOME/go
@@ -76,29 +76,35 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK - changes for golang"
     insertafter: EOF
     create: yes
+  with_items:
+    - "$HOME/.bashrc"
+    - "$HOME/.zprofile"
 
-- name: Modify .bashrc
-  blockinfile:
-    dest: "$HOME/.zprofile"
-    mode: "0644"
-    block: |
-      export GOPATH=$HOME/go
-      export GOBIN=$GOPATH/bin
-      export PATH=$GOBIN:$PATH:/usr/local/go/bin
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - changes for golang"
-    insertafter: EOF
-    create: yes
+#- name: Modify .zprofile
+#  blockinfile:
+#    dest: "$HOME/.zprofile"
+#    mode: "0644"
+#    block: |
+#      export GOPATH=$HOME/go
+#      export GOBIN=$GOPATH/bin
+#      export PATH=$GOBIN:$PATH:/usr/local/go/bin
+#    marker: "# {mark} ANSIBLE MANAGED BLOCK - changes for golang"
+#    insertafter: EOF
+#    create: yes
 
-- name: Update .bashrc sources
-  command: "/bin/bash -c 'source $HOME/.bashrc'"
+- name: "Source {{ item }}"
+  command: "/bin/bash -c 'source {{ item }}'"
   become: true
   become_user: "{{ zsh_user }}"
   changed_when: false
   failed_when: false
+  with_items:
+    - "$HOME/.bashrc"
+    - "$HOME/.zprofile"
 
-- name: Update .zprofile sources
-  command: "/bin/bash -c 'source $HOME/.zprofile'"
-  become: true
-  become_user: "{{ zsh_user }}"
-  changed_when: false
-  failed_when: false
+#- name: Update .zprofile sources
+#  command: "/bin/bash -c 'source $HOME/.zprofile'"
+#  become: true
+#  become_user: "{{ zsh_user }}"
+#  changed_when: false
+#  failed_when: false
