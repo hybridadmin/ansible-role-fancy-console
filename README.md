@@ -83,7 +83,6 @@ sudo ansible-galaxy install hybridadmin.fancy_console --force
       - joel-porquet/zsh-dircolors-solarized
       - MichaelAquilina/zsh-you-should-use
       - oldratlee/hacker-quotes
-      - horosgrisa/mysql-colorize
     zsh_autosuggestions_bind_key: "^U"
   roles:
     - hybridadmin.fancy_console
