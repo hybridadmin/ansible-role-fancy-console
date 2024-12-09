@@ -65,7 +65,7 @@
     - "{{ zsh_user_dir }}/go/src"
     - "{{ zsh_user_dir }}/go/pkg"
 
-- name: "Modify {{ item }}"
+- name: "Modify user configuration"
   blockinfile:
     dest: "{{ item }}"
     mode: "0644"
@@ -80,19 +80,7 @@
     - "$HOME/.bashrc"
     - "$HOME/.zprofile"
 
-#- name: Modify .zprofile
-#  blockinfile:
-#    dest: "$HOME/.zprofile"
-#    mode: "0644"
-#    block: |
-#      export GOPATH=$HOME/go
-#      export GOBIN=$GOPATH/bin
-#      export PATH=$GOBIN:$PATH:/usr/local/go/bin
-#    marker: "# {mark} ANSIBLE MANAGED BLOCK - changes for golang"
-#    insertafter: EOF
-#    create: yes
-
-- name: "Source {{ item }}"
+- name: "Source user configuration"
   command: "/bin/bash -c 'source {{ item }}'"
   become: true
   become_user: "{{ zsh_user }}"
@@ -101,10 +89,3 @@
   with_items:
     - "$HOME/.bashrc"
     - "$HOME/.zprofile"
-
-#- name: Update .zprofile sources
-#  command: "/bin/bash -c 'source $HOME/.zprofile'"
-#  become: true
-#  become_user: "{{ zsh_user }}"
-#  changed_when: false
-#  failed_when: false

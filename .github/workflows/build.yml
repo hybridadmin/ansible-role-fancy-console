@@ -57,7 +57,7 @@ jobs:
           - image: ubuntu
             tag: bionic
           - image: debian
-            tag: 10
+            tag: 11
           - image: fedora
             tag: 39
           - image: fedora

@@ -38,8 +38,6 @@ ANTIGEN_BUNDLES="{{ zsh_antigen_path_compat }}/bundles"
 ANTIGEN_PLUGIN_UPDATE_DAYS="{{ zsh_update_interval }}"
 ANTIGEN_SYSTEM_UPDATE_DAYS="{{ zsh_update_interval }}"
 
-{% if zsh_mc_solarized_skin %}export MC_SKIN="$HOME/.mc/lib/mc-solarized/solarized.ini"{% endif %}
-
 source "{{ zsh_antigen_path_compat }}/antigen/antigen.zsh"
 
 antigen use oh-my-zsh

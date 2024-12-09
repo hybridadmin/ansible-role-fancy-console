@@ -38,22 +38,6 @@
   register: python3_which
   changed_when: false
 
-#- name: "Python3: install pip"
-#  become: true
-#  command: "{{ python3_command }} -m ensurepip"
-#  changed_when: false
-#  when: ansible_os_family == 'RedHat'
-
-#- name: "Python3: get pip executable"
-#  shell: |
-#    set -o pipefail
-#    which {{ pip3_command }}
-#  args:
-#    executable: /bin/bash
-#  register: pip3_which
-#  changed_when: false
-#  failed_when: pip3_which.rc >= 2
-
 # https://github.com/pypa/pip/issues/5599
 - name: "Python3: upgrade pip"
   shell: |

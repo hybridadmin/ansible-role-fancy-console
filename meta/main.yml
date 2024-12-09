@@ -11,20 +11,22 @@ galaxy_info:
       versions:
         - bionic
         - focal
+        - jammy
+        - noble
     - name: Debian
       versions:
         - buster
+        - bullseye
     - name: EL
       versions:
-        - 7
         - 8
     - name: Fedora
       versions:
-        - 33
-        - 34
+        - 39
+        - 40
     - name: macOS
       versions:
-        - Big-Sur
+        - Sonoma
   galaxy_tags:
     - system
     - shell

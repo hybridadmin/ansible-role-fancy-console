@@ -72,7 +72,6 @@ _pkg_requirements:
     - attr
   CentOS:
     - keychain
-    - MariaDB-client
     - bind-utils
     - bash-completion
     - nmap

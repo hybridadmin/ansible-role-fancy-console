@@ -30,10 +30,6 @@ Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, Ce
 
 ![screen capture](./console.png?raw=true)
 
-## Midnight Commander Solarized Dark skin
-
-If you using Solarized Dark scheme and `mc`, you should want to install skin, then set `zsh_mc_solarized_skin: yes`
-
 ## Known bugs
 
 >N/A
