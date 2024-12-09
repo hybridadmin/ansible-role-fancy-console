@@ -20,9 +20,9 @@
   changed_when: false
   when: ('enabled' in systemd_resolved_status.stdout)
 
-- name: Edit /etc/systemd/resolved.conf
+- name: Edit systemd-resolved config
   replace:
-    path: /etc/systemd/resolved.conf
+    path: "{{ systemd_resolved_conf }}"
     regexp: "{{ item.name }}"
     replace: "{{ item.value }}"
   loop:

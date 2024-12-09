@@ -1,5 +1,7 @@
 ---
 
+systemd_resolved_conf: "{% if ansible_distribution == 'Fedora' and  ansible_distribution_version >= 40 %}/usr/lib/systemd/resolved.conf{% else %}/etc/systemd/resolved.conf{% endif %}"
+
 nano_install_path: "{% if ansible_user_dir == 'root' %}/usr/share/nano-syntax-highlighting{% else %}$HOME/.nano{% endif %}"
 
 powerline_go_from_github: false
