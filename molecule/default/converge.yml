@@ -7,6 +7,7 @@
 
   vars:
     zsh_user: "zopfli"
+    zsh_plugin_manager: antibody
     powerline_version: "go"
     zsh_antigen_bundles_extras:
       - nvm

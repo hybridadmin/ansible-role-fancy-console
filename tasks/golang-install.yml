@@ -77,8 +77,8 @@
     insertafter: EOF
     create: yes
   with_items:
-    - "$HOME/.bashrc"
-    - "$HOME/.zprofile"
+    - "{{ zsh_user_dir }}/.bashrc"
+    - "{{ zsh_user_dir }}/.zprofile"
 
 - name: "Source user configuration"
   command: "/bin/bash -c 'source {{ item }}'"
@@ -87,5 +87,5 @@
   changed_when: false
   failed_when: false
   with_items:
-    - "$HOME/.bashrc"
-    - "$HOME/.zprofile"
+    - "{{ zsh_user_dir }}/.bashrc"
+    - "[{ zsh_user_dir }}/.zprofile"
