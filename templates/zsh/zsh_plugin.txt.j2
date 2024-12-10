@@ -1,0 +1,21 @@
+# {{ ansible_managed }}
+# zsh version: {{ zsh_version }}
+# antidote version: {{ zsh_antidote_installed_version }}
+
+# If you use Oh-My-Zsh with antidote, load this plugin FIRST to set things up so you
+# don't have to worry about whether OMZ will work correctly.
+getantidote/use-omz
+ohmyzsh/ohmyzsh path:lib              # Make Zsh more featureful
+ohmyzsh/ohmyzsh path:plugins/extract  # Use cool OMZ plugins
+
+{% for antidote_bundle in zsh_antidote_bundles %}
+{% if antidote_bundle.path is defined %}
+{% if antidote_bundle.path is defined and not(antidote_bundle.conditional is defined) %}
+{{ antidote_bundle.name }} path:{{ antidote_bundle.path }}
+{% else%}
+{{ antidote_bundle.name }} path:{{ antidote_bundle.path }} conditional:{{ antidote_bundle.conditional }}
+{% endif %}
+{% else %}
+{{ antidote_bundle.name }}
+{% endif %}
+{% endfor %}

@@ -81,11 +81,11 @@
     - "{{ zsh_user_home_dir }}/.zprofile"
 
 - name: "Source user configuration"
-  command: "/bin/bash -c 'source {{ item }}'"
+  command: "{{ item.shell }} -c 'source {{ item.file }}'"
   become: true
   become_user: "{{ zsh_user }}"
   changed_when: false
   failed_when: false
   with_items:
-    - "{{ zsh_user_home_dir }}/.bashrc"
-    - "[{ zsh_user_home_dir }}/.zprofile"
+    - { file: "{{ zsh_user_home_dir }}/.bashrc", shell: "/bin/bash" }
+    - { file: "[{ zsh_user_home_dir }}/.zprofile", shell: "/bin/zsh" }

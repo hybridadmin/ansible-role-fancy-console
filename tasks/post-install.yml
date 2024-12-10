@@ -6,7 +6,6 @@
     cat "{{ zsh_config }}"
   args:
     executable: /bin/bash
-#  when: zsh_plugin_manager == 'antigen'
   changed_when: false
 
 - name: Reset antigen cache
