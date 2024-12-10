@@ -81,10 +81,10 @@
     group: "{{ zsh_user_group }}"
     backup: yes
 
-- name: Write .zsh_plugin.txt config
+- name: Write .zsh_plugins.txt config
   template:
-    src: "zsh/zsh_plugin.txt.j2"
-    dest: "{{ zsh_user_home_dir }}/.zsh_plugin.txt"
+    src: "zsh/zsh_plugins.txt.j2"
+    dest: "{{ zsh_user_home_dir }}/.zsh_plugins.txt"
     owner: "{{ zsh_user }}"
     mode: "0644"
     group: "{{ zsh_user_group }}"
