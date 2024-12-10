@@ -1,6 +1,12 @@
 # {{ ansible_managed }}
 # zsh version: {{ zsh_version }}
+{% if zsh_plugin_manager == 'antigen' %}
 # antigen version: {{ zsh_antigen_installed_version }}
+{% endif %}
+{% if zsh_plugin_manager == 'antidote' %}
+# antidote version: {{ zsh_antidote_installed_version }}
+{% endif %}
+
 
 export TERM="{{ zsh_term }}"
 export EDITOR="{{ zsh_editor }}"
@@ -98,11 +104,11 @@ function is-macos {
     [[ $OSTYPE == darwin* ]] || return 1
 }
 
-source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+source {{ zsh_antidote_path }}/antidote/antidote.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
 
 # Lazy-load antidote from its functions directory.
-fpath=(/opt/homebrew/opt/antidote/share/antidote/functions $fpath)
+fpath=({{ zsh_antidote_path }}/antidote/functions $fpath)
 autoload -Uz antidote
 
 #ZSH=$(antidote path ohmyzsh/ohmyzsh)

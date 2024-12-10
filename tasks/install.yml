@@ -131,7 +131,7 @@
       changed_when: false
       when: zsh_plugin_manager == 'antigen'
 
-    - name: Clone antibody {{ zsh_antidote_version }}
+    - name: Clone antidote {{ zsh_antidote_version }}
       git:
         repo: https://github.com/mattmc3/antidote.git
         dest: "{{ zsh_antidote_path }}"
@@ -139,10 +139,10 @@
         force: yes
       become: true
       become_user: "{{ zsh_user }}"
-      register: zsh_register_antibody_clone
+      register: zsh_register_antidote_clone
       when:
         - ansible_os_family != 'Darwin'
-        - zsh_plugin_manager == 'antibody'
+        - zsh_plugin_manager == 'antidote'
 
 - name: Install fzf
   block:

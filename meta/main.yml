@@ -26,6 +26,7 @@ galaxy_info:
         - 40
     - name: macOS
       versions:
+        - Ventura
         - Sonoma
   galaxy_tags:
     - system
@@ -34,5 +35,5 @@ galaxy_info:
     - zsh
     - powerline-go
     - antigen
-    - antibody
+    - antidote
 dependencies: []
