@@ -102,7 +102,7 @@
 - name: Install nano syntax highlighting
   git:
     repo: "https://github.com/scopatz/nanorc.git"
-    dest: "{{ nano_install_path }}"
+    dest: "{{ zsh_user_home_dir }}/.nano"
     version: "master"
     force: yes
   become: true
