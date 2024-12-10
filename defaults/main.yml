@@ -66,6 +66,39 @@ zsh_antigen_bundles:
 
 zsh_antigen_bundles_extras: []
 
+# Antibody bundles
+zsh_antidote_bundles:
+  # Now, let's pick our Oh My Zsh utilty plugins
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/brew" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/fancy-ctrl-z" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/git" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/web-search" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/nvm" }
+#  - { name: "ohmyzsh/ohmyzsh", path: "plugins/command-not-found"
+
+  # Add macOS specific plugins
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/brew", conditional: "is-macos" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/macos", conditional: "is-macos" }
+
+  # Add some programmer plugins
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/git" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/golang" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/python" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/ruby" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/rails" }
+
+  - { name: "zsh-users/zsh-autosuggestions" }
+  - { name: "popstas/zsh-command-time" }
+  - { name: "urbainvaes/fzf-marks" }
+  - { name: "ytet5uy4/fzf-widgets" }
+  - { name: "wfxr/forgit" }
+  - { name: "Aloxaf/fzf-tab" }
+  - { name: "MichaelAquilina/zsh-you-should-use" }
+  - { name: "zdharma-continuum/fast-syntax-highlighting" }
+  - { name: "trapd00r/zsh-syntax-highlighting-filetypes" }
+  - { name: "zsh-users/zsh-completions" }
+  - { name: "oldratlee/hacker-quotes" }
+
 # useful for deploy many zsh users at host, without duplicate and without write access
 zsh_shared: false
 
