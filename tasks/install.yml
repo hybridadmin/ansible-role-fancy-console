@@ -134,7 +134,7 @@
     - name: Clone antibody {{ zsh_antidote_version }}
       git:
         repo: https://github.com/mattmc3/antidote.git
-        dest: "{{ zsh_user_dir }}/antidote"
+        dest: "{{ zsh_antidote_path }}"
         version: "{{ zsh_antidote_version }}"
         force: yes
       become: true

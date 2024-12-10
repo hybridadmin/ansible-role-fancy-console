@@ -27,7 +27,7 @@ zsh_path:
 
 zsh_load_etc_profile: true
 
-fzf_widgets: viasite-ansible/fzf-widgets # replacement for ytet5uy4/fzf-widgets
+fzf_widgets:  #viasite-ansible/fzf-widgets # replacement for ytet5uy4/fzf-widgets
 
 zsh_antigen_version: master
 
@@ -125,7 +125,7 @@ zsh_hotkeys:
 
   # autosuggestions
   - { hotkey: '{{ zsh_autosuggestions_bind_key }}',   action: autosuggest-accept, bundle: zsh-users/zsh-autosuggestions }
-  - { hotkey: '{{ zsh_autosuggestions_bind_key_2 }}', action: autosuggest-accept, bundle: zsh-users/zsh-autosuggestions }
+#  - { hotkey: '{{ zsh_autosuggestions_bind_key_2 }}', action: autosuggest-accept, bundle: zsh-users/zsh-autosuggestions }
 
 zsh_hotkeys_extras: []
 
