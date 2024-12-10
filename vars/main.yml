@@ -20,8 +20,6 @@ zsh_fzf_arch: "{% if '64' in ansible_architecture %}amd64{% else %}386{% endif %
 zsh_fzf_url: "https://github.com/junegunn/fzf/releases/download/v{{ zsh_fzf_version.stdout }}/fzf-{{ zsh_fzf_version.stdout }}-{{ zsh_fzf_os }}_{{ zsh_fzf_arch }}.tar.gz"
 zsh_fzf_default_opts: "--height={{ zsh_fzf_height }}{% if zsh_fzf_reverse %} --layout=reverse{% endif %} --info=inline{% if zsh_fzf_border %} --border{% endif %} --margin=1 --padding=1"
 
-yadm_install_cmd: "git clone https://github.com/TheLocehiliosan/yadm.git {{ zsh_user_dir }}/.yadm-project && ln -s {{ zsh_user_dir }}/.yadm-project/yadm {{ zsh_user_dir }}/.local/bin/yadm"
-
 yadm_repo_uri: "{% if 'Fedora' in ansible_distribution %}
   https://copr.fedorainfracloud.org/coprs/cdayjr/yadm/repo/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/cdayjr-yadm-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.repo
   {% else %}
