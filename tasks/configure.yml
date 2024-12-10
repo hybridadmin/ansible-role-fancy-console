@@ -58,8 +58,7 @@
     - name: Check antidote version
       shell: |
         set -o pipefail
-        source "{{ zsh_antidote_path }}/antidote.zsh"
-        antidote -v | awk '{print $3}'
+        cat {{ zsh_antidote_path }}/functions/__antidote_version | grep "local ver" | cut -d '=' -f2 | tr -d "'"
       args:
         executable: /bin/bash
       register: zsh_register_antidote_version
