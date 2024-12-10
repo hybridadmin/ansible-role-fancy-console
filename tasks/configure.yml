@@ -58,7 +58,7 @@
     - name: Check antidote version
       shell: |
         set -o pipefail
-        source "{{ zsh_antidote_path }}/antidote/antidote.zsh"
+        source "{{ zsh_antidote_path }}/antidote.zsh"
         antidote -v | awk '{print $3}'
       args:
         executable: /bin/bash

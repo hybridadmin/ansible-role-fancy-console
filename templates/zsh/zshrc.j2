@@ -103,11 +103,11 @@ function is-macos {
     [[ $OSTYPE == darwin* ]] || return 1
 }
 
-source {{ zsh_antidote_path }}/antidote/antidote.zsh
+source {{ zsh_antidote_path }}/antidote.zsh
 zstyle ':antidote:bundle' use-friendly-names 'yes'
 
 # Lazy-load antidote from its functions directory.
-fpath=({{ zsh_antidote_path }}/antidote/functions $fpath)
+fpath=({{ zsh_antidote_path }}/functions $fpath)
 autoload -Uz antidote
 
 #ZSH=$(antidote path ohmyzsh/ohmyzsh)

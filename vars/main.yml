@@ -11,7 +11,7 @@ os_pkg_manager: "{% if 'Darwin' in ansible_os_family %}brew{% else %}{{ ansible_
 zsh_user_group: "{% if ansible_os_family == 'Darwin' %}staff{% else %}{{ zsh_user }}{% endif %}"
 zsh_user_home_dir: "{% if ansible_os_family == 'Darwin' %}/User/{{ zsh_user }}{% else %}{% if zsh_user == 'root' %}/root{% else %}/home/{{ zsh_user }}{% endif %}{% endif %}"
 zsh_antigen_path: "{% if zsh_shared %}/usr/share/zsh-config{% else %}{{ zsh_user_home_dir }}/.antigen{% endif %}"
-zsh_antidote_path: "{% if zsh_shared %}/usr/share/zsh-config{% else %}{% if ansible_os_family == 'Darwin' %}/opt/homebrew/opt/antidote/share{% else %}{{ zsh_user_home_dir }}/.antidote{% endif %}{% endif %}"
+zsh_antidote_path: "{% if zsh_shared %}/usr/share/zsh-config{% else %}{% if ansible_os_family == 'Darwin' %}/opt/homebrew/opt/antidote/share/antidote{% else %}{{ zsh_user_home_dir }}/.antidote{% endif %}{% endif %}"
 zsh_config: "{% if zsh_shared %}/usr/share/zsh-config/.zshrc{% else %}{{ zsh_user_home_dir }}/.zshrc{% endif %}"
 zsh_antigen_path_compat: "{{ zsh_antigen_path | replace('~' + zsh_user, '$HOME') }}"
 

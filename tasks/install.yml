@@ -7,7 +7,7 @@
     state: directory
     mode: "0755"
   with_items:
-    - "{{ zsh_user_dir }}/.local/bin"
+    - "{{ zsh_user_home_dir }}/.local/bin"
 
 - name: List required packages
   debug:
@@ -38,10 +38,10 @@
   shell: |
     set -o pipefail
     {{ yadm_install_cmd }}
-    chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_dir }}/.yadm-project
+    chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_home_dir }}/.yadm-project
   args:
     executable: /bin/bash
-    creates: "{{ zsh_user_dir }}/.yadm-project"
+    creates: "{{ zsh_user_home_dir }}/.yadm-project"
   changed_when: false
   when: ansible_os_family == 'Debian' and ansible_os_family != 'Darwin'
 
@@ -85,7 +85,7 @@
     - name: Install powerline-go from Github {{ poweline_go_version.stdout }}
       get_url:
         url: "https://github.com/justjanne/powerline-go/releases/download/v{{ poweline_go_version.stdout }}/powerline-go-{{ ansible_system | lower }}-amd64"
-        dest: "{{ zsh_user_dir }}/go/bin/powerline-go"
+        dest: "{{ zsh_user_home_dir }}/go/bin/powerline-go"
         mode: "a+x"
       when: powerline_version == "go" and powerline_go_from_github
 
