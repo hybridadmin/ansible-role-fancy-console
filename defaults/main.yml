@@ -1,6 +1,5 @@
 ---
 zsh_user: "{{ ansible_user_id }}"
-#zsh_user_dir: "{{ ansible_user_dir }}"
 
 zsh_plugin_manager: antigen #antidote
 zsh_antidote_version: main

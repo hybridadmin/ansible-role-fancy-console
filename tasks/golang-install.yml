@@ -9,7 +9,7 @@
   ignore_errors: yes
   register: latest_go_version
   changed_when: false
-  when: not skip_golang_install and ansible_os_family != 'Darwin'
+  when: ansible_os_family != 'Darwin'
 
 - name: Check current golang version
   shell: |
@@ -21,7 +21,7 @@
   register: go_version
   changed_when: false
   failed_when: go_version.rc >= 128
-  when: not skip_golang_install and ansible_os_family != 'Darwin'
+  when: ansible_os_family != 'Darwin'
 
 - name: Install golang
   when: ansible_os_family != 'Darwin'
@@ -34,7 +34,6 @@
       become_user: "root"
       changed_when: false
       when:
-        - not skip_golang_install
         - not latest_go_version.stdout == go_version.stdout
         - go_version.stdout | length >= 0
 
@@ -48,7 +47,6 @@
       become_user: "root"
       changed_when: false
       when:
-        - not skip_golang_install
         - not latest_go_version.stdout == go_version.stdout
         - go_version.stdout | length >= 0
 
@@ -78,7 +76,6 @@
     create: yes
   with_items:
     - "{{ zsh_user_home_dir }}/.bashrc"
-    - "{{ zsh_user_home_dir }}/.zprofile"
 
 - name: "Source user configuration"
   command: "{{ item.shell }} -c 'source {{ item.file }}'"
@@ -88,4 +85,3 @@
   failed_when: false
   with_items:
     - { file: "{{ zsh_user_home_dir }}/.bashrc", shell: "/bin/bash" }
-    - { file: "[{ zsh_user_home_dir }}/.zprofile", shell: "/bin/zsh" }

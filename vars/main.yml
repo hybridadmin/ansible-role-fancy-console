@@ -3,7 +3,6 @@
 systemd_resolved_conf: "{% if ansible_distribution == 'Fedora' and (ansible_distribution_version|int >= 40) %}/usr/lib/systemd/resolved.conf{% else %}/etc/systemd/resolved.conf{% endif %}"
 
 powerline_go_from_github: false
-skip_golang_install: false
 
 go_executable: "{% if ansible_os_family == 'Darwin' %}/opt/homebrew/bin/go{% else %}/usr/local/go/bin/go{% endif %}"
 os_pkg_manager: "{% if 'Darwin' in ansible_os_family %}brew{% else %}{{ ansible_pkg_mgr }}{% endif %}"

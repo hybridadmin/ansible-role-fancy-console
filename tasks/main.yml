@@ -1,9 +1,5 @@
 ---
 
-#- name: Set user directory
-#  set_fact:
-#    zsh_user_dir: "{{ ansible_user_dir }}"
-
 - name: Check if wsl
   shell: |
     set -o pipefail
