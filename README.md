@@ -11,11 +11,10 @@ Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, Ce
 - [`zsh`](http://zsh.sourceforge.net)
 - [`antigen`](https://github.com/zsh-users/antigen) or [`antidote`](https://antidote.sh/)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
-- [`powerline-go`](https://github.com/justjanne/powerline-go)
+- [`oh-my-posh`](https://ohmyposh.dev/) or [`powerline-go`](https://github.com/justjanne/powerline-go)
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
 - [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [`unixorn/autoupdate-antigen.zsh plugin`](https://github.com/unixorn/autoupdate-antigen.zshplugin)
-- [`ytet5uy4/fzf-widgets`](https://github.com/ytet5uy4/fzf-widgets)
 - [`urbainvaes/fzf-marks`](https://github.com/popstas/urbainvaes/fzf-marks)
 
 ## Features
@@ -192,23 +191,6 @@ zsh_aliases:
 - zsh_aliases_extra
   - { alias: 'dfh', action: 'df -h | grep -v docker', bundle: }
 ```
-
-#### Default hotkeys from plugins:
-
-- <kbd>&rarr;</kbd> - accept autosuggestion
-- <kbd>Ctrl+Z</kbd> - move current application to background, press again for return to foreground
-- <kbd>Ctrl+G</kbd> - jump to bookmarked directory. Use `mark` in directory for add to bookmarks
-- <kbd>Ctrl+R</kbd> - show command history
-- <kbd>Ctrl+@</kbd> - show all fzf-widgets
-- <kbd>Ctrl+@,C</kbd> - fzf-change-dir, press fast!
-- <kbd>Ctrl+\\</kbd> - fzf-change-recent-dir
-- <kbd>Ctrl+@,G</kbd> - fzf-change-repository
-- <kbd>Ctrl+@,F</kbd> - fzf-edit-files
-- <kbd>Ctrl+@,.</kbd> - fzf-edit-dotfiles
-- <kbd>Ctrl+@,S</kbd> - fzf-exec-ssh (using your ~/.ssh/config)
-- <kbd>Ctrl+@,G,A</kbd> - fzf-git-add-file
-- <kbd>Ctrl+@,G,B</kbd> - fzf-git-checkout-branch
-- <kbd>Ctrl+@,G,D</kbd> - fzf-git-delete-branches
 
 ## Configure bundles
 

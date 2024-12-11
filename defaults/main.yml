@@ -89,7 +89,6 @@ zsh_antidote_bundles:
   - { name: "zsh-users/zsh-autosuggestions" }
   - { name: "popstas/zsh-command-time" }
   - { name: "urbainvaes/fzf-marks" }
-  - { name: "ytet5uy4/fzf-widgets" }
   - { name: "wfxr/forgit" }
   - { name: "Aloxaf/fzf-tab" }
   - { name: "MichaelAquilina/zsh-you-should-use" }
@@ -117,7 +116,6 @@ zsh_autosuggestions_bind_key_2: ""
 zsh_fzf_height: "100%"
 zsh_fzf_reverse: yes
 zsh_fzf_border: no
-zsh_fzf_ctrl_r_opts: "--exact"
 
 # command-time
 zsh_command_time_min_seconds: 3
