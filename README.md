@@ -195,10 +195,10 @@ zsh_aliases:
 ## Configure bundles
 
 You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L37).
-If you like default bundles, but you want to add your bundles, use `zsh_antigen_bundles_extras` variable (see example playbook above).
-If you want to remove some default bundles, you should use `zsh_antigen_bundles` variable.
+If you like default bundles, but you want to add your bundles, use `zsh_antigen_bundles_extras` variable for `antigen` or `zsh_antidote_bundles_extras` variable for `antidote` (see example playbook above).
+If you want to remove some default bundles, you should use `zsh_antigen_bundles` variable for `antigen` or `zsh_antidote_bundles` for antidote.
 
-Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-bundle). All bellow variants valid:
+Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-bundle) or [`antidote`](https://antidote.sh/usage). All bellow variants valid:
 
 ```yaml
 - docker # oh-my-zsh plugin
