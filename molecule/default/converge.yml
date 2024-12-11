@@ -8,7 +8,7 @@
   vars:
     zsh_user: "zopfli"
     zsh_plugin_manager: antidote
-    prompt_theme_engine: powerline
+    prompt_theme_engine: omp #powerline
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized

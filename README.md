@@ -17,7 +17,7 @@ Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
 - [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [`unixorn/autoupdate-antigen.zsh plugin`](https://github.com/unixorn/autoupdate-antigen.zshplugin)
-- [`urbainvaes/fzf-marks`](https://github.com/popstas/urbainvaes/fzf-marks)
+- [`urbainvaes/fzf-marks`](https://github.com/urbainvaes/fzf-marks)
 
 ## Features
 
@@ -52,25 +52,16 @@ Then [`configure terminal application`](#configure-terminal-application).
 
 [`Install Ansible`](https://docs.ansible.com/ansible/latest/installation_guide/).
 
-For Ubuntu:
-
 ```bash
-sudo apt update
-sudo apt install python3-pip -y
-sudo pip3 install ansible
-```
-
-For CentOS:
-
-```bash
-yum install epel-release
-yum install ansible
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py --user
+python3 -m pip install --user ansible-core
 ```
 
 1. Download role:
 
 ```bash
-sudo ansible-galaxy install hybridadmin.fancy_console --force
+ansible-galaxy install hybridadmin.fancy_console --force
 ```
 
 2. Write playbook or use [`playbook.yml`](playbook.yml):
