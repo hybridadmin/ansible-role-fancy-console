@@ -90,17 +90,15 @@
         {{ go_executable }} install github.com/justjanne/powerline-go@latest
       args:
         executable: /bin/bash
-      register: poweline_go_version
       changed_when: false
       when: prompt_theme_engine == 'powerline'
 
     - name: Install oh-my-posh
       shell: |
         set -o pipefail
-        curl -s https://ohmyposh.dev/install.sh | bash -s
+        curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /usr/local/bin
       args:
         executable: /bin/bash
-      register: poweline_go_version
       changed_when: false
       when: prompt_theme_engine == 'omp' and ansible_os_family != 'Darwin'
 

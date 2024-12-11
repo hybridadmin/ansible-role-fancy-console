@@ -150,7 +150,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240" # gray highlight
 {% if prompt_theme_engine == 'omp' %}
 # Load Oh My Posh configuration
 if [ ! -f ~/.config/oh-my-posh/config.toml ]; then
-    eval "$(oh-my-posh init zsh --config {{ omp_theme_dir }}/if_tea.omp.json)"
+    eval "$(oh-my-posh init zsh)"
 else
     eval "$(oh-my-posh init zsh --config  ~/.config/oh-my-posh/config.toml)"
 fi

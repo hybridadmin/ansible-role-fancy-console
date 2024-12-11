@@ -87,6 +87,7 @@ _pkg_requirements:
     - ruby-devel
     - traceroute
     - attr
+    - unzip
   MacOSX:
     - go
     - grc
