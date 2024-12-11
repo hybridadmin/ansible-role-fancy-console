@@ -125,21 +125,12 @@ source ${zsh_plugins}.zsh
 
 {% endif %}
 
-
 {% if not zsh_share_history %}
 unsetopt share_history
 {% endif %}
 
-
 autoload -Uz copy-earlier-word
 zle -N copy-earlier-word
-
-# hotkeys
-{% for hotkey in zsh_hotkeys %}
-{% if 'hotkey' in hotkey and hotkey.hotkey != '' and (hotkey.bundle is not defined or hotkey.bundle in bundles_enabled) %}
-bindkey '{{ hotkey.hotkey }}' {{ hotkey.action }}
-{% endif %}
-{% endfor %}
 
 # aliases
 {% for alias in zsh_aliases %}
@@ -147,11 +138,6 @@ bindkey '{{ hotkey.hotkey }}' {{ hotkey.action }}
 alias '{{ alias.alias }}'="{{ alias.action }}"
 {% endif %}
 {% endfor %}
-
-# zsh-vi-mode
-# Fix: https://github.com/jeffreytse/zsh-vi-mode/issues/24
-# https://github.com/jeffreytse/zsh-vi-mode#execute-extra-commands
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 
 # fzf
 export FZF_TMUX=0

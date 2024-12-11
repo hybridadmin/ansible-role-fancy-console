@@ -30,10 +30,6 @@
   when: item.command is defined and (zsh_plugin_manager == 'antigen')
   register: zsh_register_commands_exists
 
-- name: Merge hotkeys lists
-  set_fact:
-    zsh_hotkeys: "{{ zsh_hotkeys + zsh_hotkeys_extras }}"
-
 - name: Antigen installed version check
   block:
     - name: Check antigen version

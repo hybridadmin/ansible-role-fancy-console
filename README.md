@@ -178,31 +178,7 @@ gnome-terminal have built-in Solarized Dark, note that you should select both ba
 
 ### Hotkeys
 
-You can view hotkeys in [`defaults/main.yml`](defaults/main.yml), `zsh_hotkeys`.
-
-Sample hotkey definitions:
-
-```yaml
-- { hotkey: "^r", action: "fzf-history" }
-# with dependency of bundle
-- {
-    hotkey: "`",
-    action: autosuggest-accept,
-    bundle: zsh-users/zsh-autosuggestions,
-  }
-```
-
-Useful to set `autosuggest-accept` to <kbd>`</kbd> hotkey, but it conflicts with Midnight Commander (break Ctrl+O subshell).
-
-You can add your custom hotkeys without replace default hotkeys with `zsh_hotkeys_extras` variable:
-
-```yaml
-zsh_hotkeys_extras:
-  - { hotkey: "^[^[[D", action: backward-word } # alt+left
-  - { hotkey: "^[^[[C", action: forward-word } # alt+right
-  # Example <Ctrl+.><Ctrl+,> inserts 2nd argument from end of prev. cmd
-  - { hotkey: "^[,", action: copy-earlier-word } # ctrl+,
-```
+> N/A
 
 ### Aliases
 
