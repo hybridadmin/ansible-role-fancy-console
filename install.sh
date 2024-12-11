@@ -9,24 +9,24 @@ title() {
 title "Install Ansible"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        if [[ -f /etc/redhat-release ]]; then
-                yum install -yq epel-release
-                yum install -yq ansible wget git
-        elif [[ -f /etc/os-release ]]; then
-                if [[ $(cat /etc/os-release | grep "VER.*ID" | sed -e 's/VERSION_ID="//g' | cut -d '.' -f1) -lt 20 ]]; then
-                        sudo apt-get install software-properties-common
-                        sudo apt-add-repository ppa:ansible/ansible
-                fi
-                sudo apt-get -y update && sudo apt-get -yqq install ansible python-apt zsh git wget -y
-        else
-                echo "Non-Redhat or Non-Debian os found"
+    if [[ -f /etc/redhat-release ]]; then
+        sudo yum install -yq epel-release
+        sudo yum install -yq ansible wget git
+    elif [[ -f /etc/os-release ]]; then
+        if [[ $(cat /etc/os-release | grep "VER.*ID" | sed -e 's/VERSION_ID="//g' | cut -d '.' -f1) -lt 20 ]]; then
+            sudo apt-get install software-properties-common
+            sudo apt-add-repository ppa:ansible/ansible
         fi
+        sudo apt-get -y update && sudo apt-get -yqq install ansible python-apt zsh git wget -y
+    else
+        echo "Non-Redhat or Non-Debian os found"
+    fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-        xcode-select --install
-        brew install ansible git wget gpg yadm gnu-sed pinentry-mac
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    xcode-select --install
+    brew install ansible git wget gpg yadm gnu-sed pinentry-mac
 else
-        echo "Unknown OS found"
+    echo "Unknown OS found"
 fi
 
 title "Install required collections"
