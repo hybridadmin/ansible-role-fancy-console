@@ -4,7 +4,9 @@ zsh_user: "{{ ansible_user_id }}"
 zsh_plugin_manager: antigen #antidote
 zsh_antidote_version: main
 
-powerline_version: "go"
+# Possible options: omp, powerline
+prompt_theme_engine: powerline
+#powerline_version: "go"
 
 # .zshrc config
 zsh_hist_stamps: yyyy-mm-dd

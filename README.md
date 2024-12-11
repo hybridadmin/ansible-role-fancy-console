@@ -77,7 +77,7 @@ sudo ansible-galaxy install hybridadmin.fancy_console --force
 ```yaml
 - hosts: all
   vars:
-    powerline_version: "go"
+    prompt_theme_engine: powerline
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized

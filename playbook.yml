@@ -3,7 +3,7 @@
 - name: Deploy
   hosts: localhost
   vars:
-    powerline_version: "go"
+    prompt_theme_engine: powerline
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized

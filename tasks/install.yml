@@ -9,6 +9,13 @@
   with_items:
     - "{{ zsh_user_home_dir }}/.local/bin"
 
+- name: add antidote package
+  set_fact:
+    pkg_requirements: "{{ pkg_requirements + ['antidote'] }}"
+  when:
+    - pkg_requirements is defined and (ansible_os_family == 'Darwin')
+    - zsh_plugin_manager == 'antidote'
+
 - name: List required packages
   debug:
     msg: "{{ pkg_requirements }}"
@@ -22,11 +29,6 @@
       become: true
       become_user: "root"
       when: pkg_requirements is defined and (ansible_os_family != 'Darwin')
-
-    - name: add antidote package
-      set_fact:
-        pkg_requirements: "{{ pkg_requirements + ['antidote'] }}"
-      when: pkg_requirements is defined and (ansible_os_family == 'Darwin')
 
     - name: Install brew packages
       community.general.homebrew:
@@ -69,9 +71,8 @@
       changed_when: False
       become: true
       become_user: "root"
-    #  when: ansible_os_family != 'Darwin'
 
-- name: Install powerline prompt
+- name: Install prompt engine
   block:
     - name: Get latest justjanne/powerline-go version
       shell: |
@@ -81,16 +82,9 @@
         executable: /bin/bash
       register: poweline_go_version
       changed_when: false
-      when: powerline_version == "go" and ansible_os_family != 'Darwin'
+      when: prompt_theme_engine == 'powerline' and ansible_os_family != 'Darwin'
 
-    - name: Install powerline-go from Github {{ poweline_go_version.stdout }}
-      get_url:
-        url: "https://github.com/justjanne/powerline-go/releases/download/v{{ poweline_go_version.stdout }}/powerline-go-{{ ansible_system | lower }}-amd64"
-        dest: "{{ zsh_user_home_dir }}/go/bin/powerline-go"
-        mode: "a+x"
-      when: powerline_version == "go" and powerline_go_from_github
-
-    - name: Install powerline-go via cli {{ poweline_go_version.stdout }}
+    - name: Install justjanne/powerline-go {{ poweline_go_version.stdout }}
       shell: |
         set -o pipefail
         {{ go_executable }} install github.com/justjanne/powerline-go@latest
@@ -98,7 +92,17 @@
         executable: /bin/bash
       register: poweline_go_version
       changed_when: false
-      when: powerline_version == "go" and not powerline_go_from_github
+      when: prompt_theme_engine == 'powerline'
+
+    - name: Install oh-my-posh
+      shell: |
+        set -o pipefail
+        curl -s https://ohmyposh.dev/install.sh | bash -s
+      args:
+        executable: /bin/bash
+      register: poweline_go_version
+      changed_when: false
+      when: prompt_theme_engine == 'omp' and ansible_os_family != 'Darwin'
 
 - name: Install nano syntax highlighting
   git:

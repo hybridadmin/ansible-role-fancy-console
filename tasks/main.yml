@@ -22,7 +22,7 @@
 
 - name: Golang installation
   include_tasks: golang-install.yml
-  when: powerline_version == "go"
+  when: prompt_theme_engine == 'powerline'
 
 - name: Installation steps
   include_tasks: install.yml
