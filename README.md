@@ -127,8 +127,7 @@ It causes some limitations:
 - Possible bugs such cache write permission denied
 - Possible bugs with oh-my-zsh themes
 
-For install shared configuration you should set `zsh_shared: yes`.
-Configuration will install to `/usr/share/zsh-config`, then you just can include to user config:
+For shared configuration you should set `zsh_shared: true` and configuration will be install to `/usr/share/zsh-config`, then you can include to user config using:
 
 ```bash
 source /usr/share/zsh-config/.zshrc
@@ -150,18 +149,18 @@ Any dotfiles can be added to `$HOME/.config/zsh` and these will be automatically
    You can see screenshots [`here`](https://github.com/powerline/fonts/blob/master/samples/All.md).
 
 2. Set color scheme.
-   - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
+  - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
 tested in iTerm2.
 
 #### iTerm2
 
-Profiles - Text - Change Font - select font "for Powerline"
+- Profiles - Text - Change Font - select font "for Powerline"
 
-Profiles - Colors - Color Presets... - select Solarized Dark
+- Profiles - Colors - Color Presets... - select Solarized Dark
 
 #### Gnome Terminal
 
-gnome-terminal has built-in Solarized Dark color scheme, note that you should select both background color scheme and palette scheme.
+- gnome-terminal has built-in Solarized Dark color scheme, note that you should select both background color scheme and palette scheme.
 
 ### Hotkeys
 
