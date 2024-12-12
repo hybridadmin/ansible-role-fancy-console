@@ -1,8 +1,8 @@
 ## Fancy-Console Role
 
 [![Release](https://github.com/hybridadmin/ansible-role-fancy-console/actions/workflows/release.yml/badge.svg)](https://github.com/hybridadmin/ansible-role-fancy-console/actions/workflows/release.yml)
-![Ansible Role](https://img.shields.io/ansible/role/d/12641)
-![Ansible Quality Score](https://img.shields.io/ansible/quality/12641)
+![Build CI](https://img.shields.io/github/actions/workflow/status/hybridadmin/ansible-role-fancy-console/build.yml?branch=main)
+![Ansible Role](https://img.shields.io/ansible/role/d/hybridadmin/fancy_console)
 
 > [!NOTE]
 Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, macOS Ventura,  macOS Sonoma, CentOS 8, Fedora 39, Fedora 40, Amazon Linux 2.
@@ -10,7 +10,7 @@ Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu
 
 ## Includes:
 
-- [`zsh`](http://zsh.sourceforge.net)
+- [`zsh`](https://zsh.sourceforge.io)
 - [`antigen`](https://github.com/zsh-users/antigen) or [`antidote`](https://antidote.sh/)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
 - [`oh-my-posh`](https://ohmyposh.dev/) or [`powerline-go`](https://github.com/justjanne/powerline-go)
@@ -21,7 +21,7 @@ Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu
 
 ## Features
 
-- default colors tested with solarized dark and default grey terminal in putty
+- default colors tested with solarized dark
 - add custom prompt elements from yml
 - custom zsh config with `~/.zshrc.local` or `/etc/zshrc.local`
 - load `/etc/profile.d` scripts
@@ -39,10 +39,10 @@ Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu
 
 ### Zero-knowledge install:
 
-If you using Ubuntu or Debian and not familiar with Ansible, you can just execute [`install.sh`](install.sh) on target machine:
+If you are not familiar with Ansible, you can just execute [`install.sh`](install.sh) on target machine:
 
 ```
-curl https://raw.githubusercontent.com/hybridadmin/ansible-role-zsh/master/install.sh | bash
+curl https://raw.githubusercontent.com/hybridadmin/ansible-role-fancy-console/main/install.sh | bash
 ```
 
 It will install zsh for root and current user.
@@ -113,7 +113,6 @@ ansible-playbook -i hosts zsh.yml --extra-vars="zsh_user=otheruser"
 4. Install fzf **without shell extensions**, [`download binary`](https://github.com/junegunn/fzf/releases)
    or `brew install fzf` for macOS.
 
-Note: I don't use `tmux-fzf` and don't tested work of it.
 
 ## Multiuser shared install
 
@@ -150,19 +149,14 @@ Add your custom config to `~/.zshrc.local` (per user) or `/etc/zshrc.local` (glo
 
 2. Set color scheme.
 
-Personaly, I prefer Solarized Dark color sceme, Droid Sans Mono for Powerline in iTerm and DejaVu Sans Mono in Putty.
+The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
+tested in iTerm2.
 
-#### iTerm
+#### iTerm2
 
 Profiles - Text - Change Font - select font "for Powerline"
 
 Profiles - Colors - Color Presets... - select Solarized Dark
-
-#### Putty
-
-Settings - Window - Appearance - Font settings
-
-You can download [`Solarized Dark for Putty`](https://github.com/altercation/solarized/tree/master/putty-colors-solarized).
 
 #### Gnome Terminal
 
@@ -187,7 +181,7 @@ zsh_aliases:
 
 ## Configure bundles
 
-You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L37).
+You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L33).
 If you like default bundles, but you want to add your bundles, use `zsh_antigen_bundles_extras` variable for `antigen` or `zsh_antidote_bundles_extras` variable for `antidote` (see example playbook above).
 If you want to remove some default bundles, you should use `zsh_antigen_bundles` variable for `antigen` or `zsh_antidote_bundles` for antidote.
 
