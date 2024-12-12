@@ -5,7 +5,7 @@
 ![Ansible Role](https://img.shields.io/ansible/role/d/hybridadmin/fancy_console)
 
 > [!NOTE]
-Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, macOS Ventura,  macOS Sonoma, CentOS 8, Fedora 39, Fedora 40, Amazon Linux 2.
+Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, macOS Ventura,  macOS Sonoma, macOS Sequoia, CentOS 8, Fedora 39, Fedora 40, Amazon Linux 2.
 
 
 ## Includes:
@@ -24,7 +24,7 @@ Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu
 - default colors tested with solarized dark
 - add custom prompt elements from yml
 - custom zsh config with `~/.zshrc.local` or `/etc/zshrc.local`
-- load `/etc/profile.d` scripts
+- load `/etc/profile.d` and/or `$HOME/.config/zsh` scripts
 - install only plugins that useful for your machine. For example, plugin `docker` will not install if you have not Docker
 
 ## screen capture
@@ -142,14 +142,15 @@ You should not edit `~/.zshrc`!
 Add your custom config to `~/.zshrc.local` (per user) or `/etc/zshrc.local` (global).
 `.zshrc.local` will never touched by ansible.
 
+Any dotfiles can be added to `$HOME/.config/zsh` and these will be automatically detected and loaded when `~/.zshrc` is sourced.
+
 ### Configure terminal application
 
 1. Download [`powerline fonts`](https://github.com/powerline/fonts), install font that you prefer.
    You can see screenshots [`here`](https://github.com/powerline/fonts/blob/master/samples/All.md).
 
 2. Set color scheme.
-
-The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
+   - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
 tested in iTerm2.
 
 #### iTerm2
@@ -160,7 +161,7 @@ Profiles - Colors - Color Presets... - select Solarized Dark
 
 #### Gnome Terminal
 
-gnome-terminal have built-in Solarized Dark, note that you should select both background color scheme and palette scheme.
+gnome-terminal has built-in Solarized Dark color scheme, note that you should select both background color scheme and palette scheme.
 
 ### Hotkeys
 
@@ -168,8 +169,7 @@ gnome-terminal have built-in Solarized Dark, note that you should select both ba
 
 ### Aliases
 
-You can use aliases for your command with easy deploy.
-Aliases config mostly same as hotkeys config:
+You can use aliases for your command with easy deploy. Aliases config is as below:
 
 ```yaml
 zsh_aliases:

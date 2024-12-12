@@ -19,14 +19,14 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         fi
         sudo apt-get -y update && sudo apt-get -yqq install ansible python-apt zsh git wget -y
     else
-        echo "Non-Redhat or Non-Debian os found"
+        echo "Non-Redhat or Non-Debian OS detected"
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     xcode-select --install
     brew install ansible git wget gpg yadm gnu-sed pinentry-mac
 else
-    echo "Unknown OS found"
+    echo "Unknown OS detected"
 fi
 
 title "Install required collections"
@@ -38,8 +38,8 @@ ansible-galaxy install hybridadmin.fancy_console --force
 title "Download playbook to /tmp/zsh.yml"
 curl https://raw.githubusercontent.com/hybridadmin/ansible-role-fancy-console/master/playbook.yml > /tmp/zsh.yml
 
-title "Provision playbook for root"
-ansible-playbook -i "localhost," -c local -b /tmp/zsh.yml
+#title "Provision playbook for root"
+#ansible-playbook -i "localhost," -c local -b /tmp/zsh.yml
 
 title "Provision playbook for current user: $(whoami)"
 ansible-playbook -i "localhost," -c local /tmp/zsh.yml --extra-vars="zsh_user=${USER}"

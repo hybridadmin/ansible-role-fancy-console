@@ -9,6 +9,13 @@
   with_items:
     - "{{ zsh_user_home_dir }}/.local/bin"
 
+- name: Create zsh shared dir
+  ansible.builtin.file:
+    path: "{{ zsh_shared_config_dir }}"
+    state: directory
+    mode: '0755'
+  when: zsh_shared|bool
+
 - name: add antidote package
   set_fact:
     pkg_requirements: "{{ pkg_requirements + ['antidote'] }}"

@@ -21,16 +21,16 @@ UPDATE_ZSH_DAYS="{{ zsh_update_interval }}"
 COMPLETION_WAITING_DOTS="true"
 
 # OMZ update settings
-if [ $UPDATE_ZSH_DAYS -gt 0 ]; then
-        zstyle :omz:update mode auto
-        # This will check for updates every 7 days
-        zstyle :omz:update frequency $UPDATE_ZSH_DAYS
-fi
+{% if zsh_update_interval > 0 %}
+zstyle :omz:update mode auto
+# This will check for updates every 7 days
+zstyle :omz:update frequency $UPDATE_ZSH_DAYS
+{% endif %}
 
 # TMUX - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux
 if [ -f ~/.tmux.conf ] || [ -f ~/.tmux.conf.local ]; then
-	ZSH_TMUX_AUTOSTART=true
-	ZSH_TMUX_AUTOCONNECT=false
+    ZSH_TMUX_AUTOSTART=true
+    ZSH_TMUX_AUTOCONNECT=false
 fi
 
 {% set bundles_enabled = [] %}
@@ -171,29 +171,29 @@ POWERLINE_CMD="${POWERLINE_BIN} -shorten-gke-names -modules ${POWERLINE_MODULES_
 zmodload zsh/datetime
 
 function preexec() {
-  __TIMER=$EPOCHREALTIME
+    __TIMER=$EPOCHREALTIME
 }
 
 function powerline_precmd() {
-  local __ERRCODE=$?
-  local __DURATION=0
+    local __ERRCODE=$?
+    local __DURATION=0
 
-  if [ -n $__TIMER ]; then
-    local __ERT=$EPOCHREALTIME
-    __DURATION="$(($__ERT - ${__TIMER:-__ERT}))"
-  fi
+    if [ -n $__TIMER ]; then
+        local __ERT=$EPOCHREALTIME
+        __DURATION="$(($__ERT - ${__TIMER:-__ERT}))"
+    fi
 
-  eval "$($GOPATH/bin/powerline-go -error $__ERRCODE -modules ${POWERLINE_MODULES_LEFT} -shell zsh -eval -duration $__DURATION -numeric-exit-codes -modules-right ${POWERLINE_MODULES_RIGHT} -cwd-max-depth 2)"
-  unset __TIMER
+    eval "$($GOPATH/bin/powerline-go -error $__ERRCODE -modules ${POWERLINE_MODULES_LEFT} -shell zsh -eval -duration $__DURATION -numeric-exit-codes -modules-right ${POWERLINE_MODULES_RIGHT} -cwd-max-depth 2)"
+    unset __TIMER
 }
 
 function install_powerline_precmd() {
-  for s in "${precmd_functions[@]}"; do
-    if [ "$s" = "powerline_precmd" ]; then
-      return
-    fi
-  done
-  precmd_functions+=(powerline_precmd)
+    for s in "${precmd_functions[@]}"; do
+        if [ "$s" = "powerline_precmd" ]; then
+            return
+        fi
+    done
+    precmd_functions+=(powerline_precmd)
 }
 
 if [ "$TERM" != "linux" ]; then
@@ -211,21 +211,21 @@ alias suser='su -'
 [[ -r /etc/zsh/zshrc.local ]] && source /etc/zsh/zshrc.local
 [[ -r "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 
-## load dot files
+## load custom dot files
 _load_settings() {
-  _dir="$1"
-  if [ -d "$_dir" ]; then
-    for config in $(find "$_dir" -maxdepth 10 -type f) ; do
-      case "$config" in
-        "$_dir"/*.zsh)
-          source $config
-          ;;
-        *)
-          :
-          ;;
-      esac
-    done
-  fi
+    _dir="$1"
+    if [ -d "$_dir" ]; then
+        for config in $(find "$_dir" -maxdepth 10 -type f) ; do
+            case "$config" in
+                "$_dir"/*.zsh)
+                    source $config
+                    ;;
+                *)
+                    :
+                    ;;
+            esac
+        done
+    fi
 }
 _load_settings "$HOME/.config/zsh"
 
