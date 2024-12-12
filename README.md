@@ -149,7 +149,7 @@ Any dotfiles can be added to `$HOME/.config/zsh` and these will be automatically
    You can see screenshots [`here`](https://github.com/powerline/fonts/blob/master/samples/All.md).
 
 2. Set color scheme.
-  - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
+   - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
 tested in iTerm2.
 
 #### iTerm2
@@ -168,7 +168,7 @@ tested in iTerm2.
 
 ### Aliases
 
-You can use aliases for your command with easy deploy. Aliases config is as below:
+You can use aliases for your command(s) with easy deploy. Aliases config is as below:
 
 ```yaml
 zsh_aliases:
@@ -193,7 +193,7 @@ Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-
 - ~/projects/zsh/my-plugin --no-local-clone # plugin from local directory
 ```
 
-Note that bundles can use conditions for load. There are two types of conditions:
+Note that bundles can use conditions for loading. There are two types of conditions:
 
 1. Command conditions. Just add `command` to bundle:
 
@@ -215,4 +215,4 @@ Bundles `docker` and `docker-compose` will be added to config only if commands e
 - { name: brew, when: "{{ ansible_os_family != 'Darwin' }}" }
 ```
 
-Note: you should wrap condition in `"{{ }}"`
+Note: You should wrap condition within: `"{{ }}"`
