@@ -1,7 +1,7 @@
 ## Fancy-Console Role
 
 [![Release](https://github.com/hybridadmin/ansible-role-fancy-console/actions/workflows/release.yml/badge.svg)](https://github.com/hybridadmin/ansible-role-fancy-console/actions/workflows/release.yml)
-![Build CI](https://img.shields.io/github/actions/workflow/status/hybridadmin/ansible-role-fancy-console/build.yml?branch=main)
+![Build CI](https://img.shields.io/github/actions/workflow/status/hybridadmin/ansible-role-fancy-console/build.yml)
 ![Ansible Role](https://img.shields.io/ansible/role/d/hybridadmin/fancy_console)
 
 > [!NOTE]
@@ -146,7 +146,7 @@ Any dotfiles can be added to `$HOME/.config/zsh` and these will be automatically
    You can see screenshots [`here`](https://github.com/powerline/fonts/blob/master/samples/All.md).
 
 2. Set color scheme.
-  - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
+   - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
 tested in iTerm2.
 
 #### iTerm2
