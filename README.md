@@ -157,7 +157,7 @@ tested in iTerm2.
 
 #### Gnome Terminal
 
-- gnome-terminal has built-in Solarized Dark color scheme, note that you should select both background color scheme and palette scheme.
+- gnome-terminal has built-in Solarized Dark color scheme, so ensure that you select both background color scheme and palette scheme.
 
 ### Hotkeys
 
@@ -190,7 +190,7 @@ Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-
 - ~/projects/zsh/my-plugin --no-local-clone # plugin from local directory
 ```
 
-Note that bundles can use conditions for loading. There are two types of conditions:
+>NB: that bundles can use conditions for loading. There are two types of conditions:
 
 1. Command conditions. Just add `command` to bundle:
 
@@ -212,4 +212,4 @@ Bundles `docker` and `docker-compose` will be added to config only if commands e
 - { name: brew, when: "{{ ansible_os_family != 'Darwin' }}" }
 ```
 
-Note: You should wrap condition within: `"{{ }}"`
+>NB: You should wrap condition within: `"{{ }}"`
