@@ -116,18 +116,15 @@ ansible-playbook -i hosts zsh.yml --extra-vars="zsh_user=otheruser"
 
 ## Multiuser shared install
 
-If you have 10+ users on host, probably you don't want manage tens of configurations and thousands of files.
-
-In this case you can deploy single zsh config and include it to all users.
-
-It causes some limitations:
+If you have 10+ users on host, managing multiple configurations and thousands of files can become a bit of a hastle in which case
+ you can deploy a single shared zsh config and include it to all users. There are some limitations which are listed below:
 
 - Users have read only access to zsh config
 - Users cannot disable global enabled bundles
 - Possible bugs such cache write permission denied
 - Possible bugs with oh-my-zsh themes
 
-For shared configuration you should set `zsh_shared: true` and configuration will be install to `/usr/share/zsh-config`, then you can include to user config using:
+For shared configuration you should set `zsh_shared: true` and configuration will be installed to `/usr/share/zsh-config`, then you can include to user config using:
 
 ```bash
 source /usr/share/zsh-config/.zshrc
@@ -149,7 +146,7 @@ Any dotfiles can be added to `$HOME/.config/zsh` and these will be automatically
    You can see screenshots [`here`](https://github.com/powerline/fonts/blob/master/samples/All.md).
 
 2. Set color scheme.
-   - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
+  - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
 tested in iTerm2.
 
 #### iTerm2
