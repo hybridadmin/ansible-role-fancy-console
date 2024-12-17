@@ -2,18 +2,17 @@
 
 - name: Converge
   hosts: all
-#  remote_user: root
   any_errors_fatal: true
 
   vars:
     zsh_user: "zopfli"
-    powerline_version: "go"
+    zsh_plugin_manager: antidote
+    prompt_theme_engine: omp #powerline
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
       - MichaelAquilina/zsh-you-should-use
       - oldratlee/hacker-quotes
-      - horosgrisa/mysql-colorize
     zsh_autosuggestions_bind_key: "^U"
 
   pre_tasks:
@@ -24,6 +23,3 @@
     - name: "Include fancy_console role"
       include_role:
         name: "hybridadmin.fancy_console"
-#        apply:
-#          become: true
-#          become_user: "{{ zsh_user }}"

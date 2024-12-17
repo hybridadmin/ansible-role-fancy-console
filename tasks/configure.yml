@@ -27,28 +27,46 @@
   failed_when: false
   changed_when: false
   check_mode: no
-  when: item.command is defined
+  when: item.command is defined and (zsh_plugin_manager == 'antigen')
   register: zsh_register_commands_exists
 
-- name: Merge hotkeys lists
-  set_fact:
-    zsh_hotkeys: "{{ zsh_hotkeys + zsh_hotkeys_extras }}"
+- name: Antigen installed version check
+  block:
+    - name: Check antigen version
+      shell: |
+        set -o pipefail
+        cat {{ zsh_antigen_path }}/antigen/VERSION | tr -d 'v'
+      args:
+        executable: /bin/bash
+      register: zsh_register_antigen_version
+      changed_when: false
+      failed_when: false
+      check_mode: no
+      tags: configure
 
-- name: Check antigen version
-  shell: |
-    set -o pipefail
-    cat {{ zsh_antigen_path }}/antigen/VERSION | tr -d 'v'
-  args:
-    executable: /bin/bash
-  register: zsh_register_antigen_version
-  changed_when: false
-  failed_when: false
-  check_mode: no
-  tags: configure
+    - name: Set zsh_antigen_installed_version variable
+      set_fact:
+        zsh_antigen_installed_version: "{{ zsh_register_antigen_version.stdout }}"
+  when: zsh_plugin_manager == 'antigen'
 
-- name: Set zsh_antigen_installed_version variable
-  set_fact:
-    zsh_antigen_installed_version: "{{ zsh_register_antigen_version.stdout }}"
+- name: Antidote installed version check
+  block:
+    - name: Check antidote version
+      shell: |
+        set -o pipefail
+        cat {{ zsh_antidote_path }}/functions/__antidote_version | grep "local ver" | cut -d '=' -f2 | tr -d "'"
+      args:
+        executable: /bin/bash
+      register: zsh_register_antidote_version
+      changed_when: false
+      failed_when: false
+      check_mode: no
+      tags: configure
+
+    - name: Set zsh_antidote_installed_version variable
+      set_fact:
+        zsh_antidote_installed_version: "{{ zsh_register_antidote_version.stdout }}"
+  when: zsh_plugin_manager == 'antidote'
 
 - name: Write .zshrc config
   template:
@@ -58,37 +76,16 @@
     mode: "0644"
     group: "{{ zsh_user_group }}"
     backup: yes
-  when: zsh_antigen_installed_version | length > 0
 
-- name: Create powerline-shell config dir
-  file:
-    path: "{{ zsh_user_dir }}/.config/powerline-shell"
-    state: directory
-    mode: "0755"
-  changed_when: False
-  when: powerline_version == "shell"
-
-- name: Write powerline-shell config
+- name: Write .zsh_plugins.txt config
   template:
-    src: "powerline-shell/powerline-config.j2"
-    dest: "{{ zsh_user_dir }}/.config/powerline-shell/config.json"
+    src: "zsh/zsh_plugins.txt.j2"
+    dest: "{{ zsh_user_home_dir }}/.zsh_plugins.txt"
     owner: "{{ zsh_user }}"
     mode: "0644"
     group: "{{ zsh_user_group }}"
     backup: yes
-  changed_when: False
-  when: powerline_version == "shell"
-
-- name: Write powerline-shell theme
-  template:
-    src: "powerline-shell/powerline-theme.j2"
-    dest: "{{ zsh_user_dir }}/.config/powerline-shell/powerline-theme.py"
-    owner: "{{ zsh_user }}"
-    mode: "0644"
-    group: "{{ zsh_user_group }}"
-    backup: yes
-  changed_when: False
-  when: powerline_version == "shell"
+  when: zsh_plugin_manager == 'antidote'
 
 - name: Set zsh as default shell
   user:

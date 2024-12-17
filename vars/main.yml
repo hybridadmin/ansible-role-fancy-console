@@ -1,32 +1,23 @@
 ---
 
-nano_install_path: "{% if ansible_user_dir == 'root' %}/usr/share/nano-syntax-highlighting{% else %}$HOME/.nano{% endif %}"
+zsh_shared_config_dir: /usr/share/zsh-config
 
-skip_golang_install: false
+systemd_resolved_conf: "{% if ansible_distribution == 'Fedora' and (ansible_distribution_version|int >= 40) %}/usr/lib/systemd/resolved.conf{% else %}/etc/systemd/resolved.conf{% endif %}"
 go_executable: "{% if ansible_os_family == 'Darwin' %}/opt/homebrew/bin/go{% else %}/usr/local/go/bin/go{% endif %}"
-powerline_go_from_github: false
-
 os_pkg_manager: "{% if 'Darwin' in ansible_os_family %}brew{% else %}{{ ansible_pkg_mgr }}{% endif %}"
+omp_theme_dir: "{% if ansible_os_family == 'Darwin' %}/opt/homebrew/opt/oh-my-posh/themes{% else %}/usr/share/oh-my-posh/themes{% endif %}"
 
-extra_pkg_mgr_cmds: "{% if ansible_os_family == 'Darwin' %}{% else %} update_cache=yes{% endif %}"
 zsh_user_group: "{% if ansible_os_family == 'Darwin' %}staff{% else %}{{ zsh_user }}{% endif %}"
-zsh_antigen_path: "{% if zsh_shared %}/usr/share/zsh-config{% else %}~{{ zsh_user }}/.antigen{% endif %}"
-zsh_config: "{% if zsh_shared %}/usr/share/zsh-config/.zshrc{% else %}~{{ zsh_user }}/.zshrc{% endif %}"
+zsh_user_home_dir: "{% if ansible_os_family == 'Darwin' %}/User/{{ zsh_user }}{% else %}{% if zsh_user == 'root' %}/root{% else %}/home/{{ zsh_user }}{% endif %}{% endif %}"
+zsh_antigen_path: "{% if zsh_shared %}{{ zsh_shared_config_dir }}{% else %}{{ zsh_user_home_dir }}/.antigen{% endif %}"
+zsh_antidote_path: "{% if zsh_shared %}{{ zsh_shared_config_dir }}{% else %}{% if ansible_os_family == 'Darwin' %}/opt/homebrew/opt/antidote/share/antidote{% else %}{{ zsh_user_home_dir }}/.antidote{% endif %}{% endif %}"
+zsh_config: "{% if zsh_shared %}{{ zsh_shared_config_dir }}/.zshrc{% else %}{{ zsh_user_home_dir }}/.zshrc{% endif %}"
 zsh_antigen_path_compat: "{{ zsh_antigen_path | replace('~' + zsh_user, '$HOME') }}"
 
 zsh_fzf_os: "{{ ansible_system | lower }}"
 zsh_fzf_arch: "{% if '64' in ansible_architecture %}amd64{% else %}386{% endif %}"
-zsh_fzf_url: "https://github.com/junegunn/fzf/releases/download/{{ zsh_fzf_version.stdout }}/fzf-{{ zsh_fzf_version.stdout }}-{{ zsh_fzf_os }}_{{ zsh_fzf_arch }}.tar.gz"
-zsh_antigen_fzf_path: "{{ zsh_antigen_path }}/repos/https-COLON--SLASH--SLASH-github.com-SLASH-junegunn-SLASH-fzf.git"
+zsh_fzf_url: "https://github.com/junegunn/fzf/releases/download/v{{ zsh_fzf_version.stdout }}/fzf-{{ zsh_fzf_version.stdout }}-{{ zsh_fzf_os }}_{{ zsh_fzf_arch }}.tar.gz"
 zsh_fzf_default_opts: "--height={{ zsh_fzf_height }}{% if zsh_fzf_reverse %} --layout=reverse{% endif %} --info=inline{% if zsh_fzf_border %} --border{% endif %} --margin=1 --padding=1"
-
-yadm_install_cmd: "git clone https://github.com/TheLocehiliosan/yadm.git {{ zsh_user_dir }}/.yadm-project && ln -s {{ zsh_user_dir }}/.yadm-project/yadm {{ zsh_user_dir }}/.local/bin/yadm"
-
-yadm_repo_uri: "{% if 'Fedora' in ansible_distribution %}
-  https://copr.fedorainfracloud.org/coprs/cdayjr/yadm/repo/{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}/cdayjr-yadm-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.repo
-  {% else %}
-  https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/{{ ansible_distribution }}_{{ ansible_distribution_major_version }}/home:TheLocehiliosan:yadm.repo
-  {% endif %}"
 
 basic_system_packages: ["wget", "curl", "tar", "gnupg"]
 
@@ -70,7 +61,6 @@ _pkg_requirements:
     - attr
   CentOS:
     - keychain
-    - MariaDB-client
     - bind-utils
     - bash-completion
     - nmap
@@ -93,6 +83,7 @@ _pkg_requirements:
     - ruby-devel
     - traceroute
     - attr
+    - unzip
   MacOSX:
     - go
     - grc
@@ -100,6 +91,7 @@ _pkg_requirements:
     - tree
     - mtr
     - ncdu
+    - 'jandedobbeleer/oh-my-posh/oh-my-posh'
 
 pkg_requirements: "{% if 'kali' in ansible_distribution_release %}{{ _pkg_requirements['default'] + _pkg_requirements['Debian'] }}{% else %}{{ _pkg_requirements['default'] + _pkg_requirements[ansible_distribution] }}{% endif %}"
 

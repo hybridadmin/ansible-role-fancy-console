@@ -12,8 +12,9 @@ platforms:
   - name: ansible-role-${ROLE_NAME:-fancy-console}-${MOLECULE_DISTRO:-ubuntu}-${MOLECULE_DISTRO_TAG:-focal}
     image: "hybridadmin/ansible-${MOLECULE_DISTRO:-ubuntu}:${MOLECULE_DISTRO_TAG:-focal}"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
+    cgroupns_mode: host
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
     privileged: true
     pre_build_image: true
 provisioner:

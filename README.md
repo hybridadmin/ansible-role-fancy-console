@@ -1,92 +1,66 @@
 ## Fancy-Console Role
 
 [![Release](https://github.com/hybridadmin/ansible-role-fancy-console/actions/workflows/release.yml/badge.svg)](https://github.com/hybridadmin/ansible-role-fancy-console/actions/workflows/release.yml)
-![Ansible Role](https://img.shields.io/ansible/role/d/12641)
-![Ansible Quality Score](https://img.shields.io/ansible/quality/12641)
+![Build CI](https://img.shields.io/github/actions/workflow/status/hybridadmin/ansible-role-fancy-console/build.yml)
+![Ansible Role](https://img.shields.io/ansible/role/d/hybridadmin/fancy_console)
 
-Tested on Debian 10, Ubuntu 16.04, Ubuntu 18.04, Ubuntu 20.04, macOS Ventura, CentOS 7, CentOS 8, Fedora 33, Fedora 34, Amazon Linux 2.
+> [!NOTE]
+Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, macOS Ventura,  macOS Sonoma, macOS Sequoia, CentOS 8, Fedora 39, Fedora 40, Amazon Linux 2.
+
 
 ## Includes:
 
-- [`zsh`](http://zsh.sourceforge.net)
-- [`antigen`](https://github.com/zsh-users/antigen)
+- [`zsh`](https://zsh.sourceforge.io)
+- [`antigen`](https://github.com/zsh-users/antigen) or [`antidote`](https://antidote.sh/)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
-- [`powerline-go`](https://github.com/justjanne/powerline-go) or [`powerline-shell`](https://github.com/b-ryan/powerline-shell)
+- [`oh-my-posh`](https://ohmyposh.dev/) or [`powerline-go`](https://github.com/justjanne/powerline-go)
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
 - [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [`unixorn/autoupdate-antigen.zsh plugin`](https://github.com/unixorn/autoupdate-antigen.zshplugin)
-- [`ytet5uy4/fzf-widgets`](https://github.com/ytet5uy4/fzf-widgets)
-- [`urbainvaes/fzf-marks`](https://github.com/popstas/urbainvaes/fzf-marks)
+- [`urbainvaes/fzf-marks`](https://github.com/urbainvaes/fzf-marks)
 
 ## Features
 
-- default colors tested with solarized dark and default grey terminal in putty
+- default colors tested with solarized dark
 - add custom prompt elements from yml
 - custom zsh config with `~/.zshrc.local` or `/etc/zshrc.local`
-- load `/etc/profile.d` scripts
+- load `/etc/profile.d` and/or `$HOME/.config/zsh` scripts
 - install only plugins that useful for your machine. For example, plugin `docker` will not install if you have not Docker
 
 ## screen capture
 
 ![screen capture](./console.png?raw=true)
 
-## Midnight Commander Solarized Dark skin
-
-If you using Solarized Dark scheme and `mc`, you should want to install skin, then set `zsh_mc_solarized_skin: yes`
-
 ## Known bugs
 
-### `su username` caused errors
-
-See [`antigen issue`](https://github.com/zsh-users/antigen/issues/136).
-If both root and su user using antigen, you should use `su - username` in place of `su username`.
-
-Or you can use bundled alias `suser`.
-
-Also, you can try to fix it, add to `~/.zshrc.local`:
-
-```
-alias su='su -'
-```
-
-But this alias can break you scripts, that using `su`.
+>N/A
 
 ## Install for real machine
 
 ### Zero-knowledge install:
 
-If you using Ubuntu or Debian and not familiar with Ansible, you can just execute [`install.sh`](install.sh) on target machine:
+If you are not familiar with Ansible, you can just execute [`install.sh`](install.sh) on target machine:
 
 ```
-curl https://raw.githubusercontent.com/hybridadmin/ansible-role-zsh/master/install.sh | bash
+curl https://raw.githubusercontent.com/hybridadmin/ansible-role-fancy-console/main/install.sh | bash
 ```
 
-It will install zsh for root and current user.
-Then [`configure terminal application`](#configure-terminal-application).
+It will install zsh for root and current user, then [`configure terminal application`](#configure-terminal-application).
 
 ### Manual install
 
-[`Install Ansible`](https://docs.ansible.com/ansible/latest/installation_guide/).
-
-For Ubuntu:
+- <https://docs.ansible.com/ansible/latest/installation_guide/>
 
 ```bash
-sudo apt update
-sudo apt install python3-pip -y
-sudo pip3 install ansible
-```
-
-For CentOS:
-
-```bash
-yum install epel-release
-yum install ansible
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py --user
+python3 -m pip install --user ansible-core
 ```
 
 1. Download role:
 
 ```bash
-sudo ansible-galaxy install hybridadmin.fancy_console --force
+ansible-galaxy install hybridadmin.fancy_console --force
 ```
 
 2. Write playbook or use [`playbook.yml`](playbook.yml):
@@ -94,13 +68,12 @@ sudo ansible-galaxy install hybridadmin.fancy_console --force
 ```yaml
 - hosts: all
   vars:
-    powerline_version: "go"
+    prompt_theme_engine: powerline
     zsh_antigen_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
       - MichaelAquilina/zsh-you-should-use
       - oldratlee/hacker-quotes
-      - horosgrisa/mysql-colorize
     zsh_autosuggestions_bind_key: "^U"
   roles:
     - hybridadmin.fancy_console
@@ -139,23 +112,18 @@ ansible-playbook -i hosts zsh.yml --extra-vars="zsh_user=otheruser"
 4. Install fzf **without shell extensions**, [`download binary`](https://github.com/junegunn/fzf/releases)
    or `brew install fzf` for macOS.
 
-Note: I don't use `tmux-fzf` and don't tested work of it.
 
 ## Multiuser shared install
 
-If you have 10+ users on host, probably you don't want manage tens of configurations and thousands of files.
-
-In this case you can deploy single zsh config and include it to all users.
-
-It causes some limitations:
+If you have 10+ users on host, managing multiple configurations and thousands of files can become a bit of a hastle in which case
+ you can deploy a single shared zsh config and include it to all users. There are some limitations which are listed below:
 
 - Users have read only access to zsh config
 - Users cannot disable global enabled bundles
 - Possible bugs such cache write permission denied
 - Possible bugs with oh-my-zsh themes
 
-For install shared configuration you should set `zsh_shared: yes`.
-Configuration will install to `/usr/share/zsh-config`, then you just can include to user config:
+For shared configuration you should set `zsh_shared: true` and configuration will be installed to `/usr/share/zsh-config`, then you can include to user config using:
 
 ```bash
 source /usr/share/zsh-config/.zshrc
@@ -169,63 +137,34 @@ You should not edit `~/.zshrc`!
 Add your custom config to `~/.zshrc.local` (per user) or `/etc/zshrc.local` (global).
 `.zshrc.local` will never touched by ansible.
 
+Any dotfiles can be added to `$HOME/.config/zsh` and these will be automatically detected and loaded when `~/.zshrc` is sourced.
+
 ### Configure terminal application
 
 1. Download [`powerline fonts`](https://github.com/powerline/fonts), install font that you prefer.
    You can see screenshots [`here`](https://github.com/powerline/fonts/blob/master/samples/All.md).
 
 2. Set color scheme.
+   - The [`Argonaut`](https://github.com/pwaleczek/Argonaut-theme) color scheme is preferred with either of the fonts `FuraMono Nerd Font Mono`, `MesloLGS Nerd Font Mono`, `CaskaydiaCove Nerd Font Mono`, `Roboto Mono for Powerline`
+tested in iTerm2.
 
-Personaly, I prefer Solarized Dark color sceme, Droid Sans Mono for Powerline in iTerm and DejaVu Sans Mono in Putty.
+#### iTerm2
 
-#### iTerm
+- Profiles - Text - Change Font - select font "for Powerline"
 
-Profiles - Text - Change Font - select font "for Powerline"
-
-Profiles - Colors - Color Presets... - select Solarized Dark
-
-#### Putty
-
-Settings - Window - Appearance - Font settings
-
-You can download [`Solarized Dark for Putty`](https://github.com/altercation/solarized/tree/master/putty-colors-solarized).
+- Profiles - Colors - Color Presets... - select Solarized Dark
 
 #### Gnome Terminal
 
-gnome-terminal have built-in Solarized Dark, note that you should select both background color scheme and palette scheme.
+- gnome-terminal has built-in Solarized Dark color scheme, so ensure that you select both background color scheme and palette scheme.
 
 ### Hotkeys
 
-You can view hotkeys in [`defaults/main.yml`](defaults/main.yml), `zsh_hotkeys`.
-
-Sample hotkey definitions:
-
-```yaml
-- { hotkey: "^r", action: "fzf-history" }
-# with dependency of bundle
-- {
-    hotkey: "`",
-    action: autosuggest-accept,
-    bundle: zsh-users/zsh-autosuggestions,
-  }
-```
-
-Useful to set `autosuggest-accept` to <kbd>`</kbd> hotkey, but it conflicts with Midnight Commander (break Ctrl+O subshell).
-
-You can add your custom hotkeys without replace default hotkeys with `zsh_hotkeys_extras` variable:
-
-```yaml
-zsh_hotkeys_extras:
-  - { hotkey: "^[^[[D", action: backward-word } # alt+left
-  - { hotkey: "^[^[[C", action: forward-word } # alt+right
-  # Example <Ctrl+.><Ctrl+,> inserts 2nd argument from end of prev. cmd
-  - { hotkey: "^[,", action: copy-earlier-word } # ctrl+,
-```
+> N/A
 
 ### Aliases
 
-You can use aliases for your command with easy deploy.
-Aliases config mostly same as hotkeys config:
+You can use aliases for your command(s) with easy deploy. Aliases config is as below:
 
 ```yaml
 zsh_aliases:
@@ -235,30 +174,13 @@ zsh_aliases:
   - { alias: 'dfh', action: 'df -h | grep -v docker', bundle: }
 ```
 
-#### Default hotkeys from plugins:
-
-- <kbd>&rarr;</kbd> - accept autosuggestion
-- <kbd>Ctrl+Z</kbd> - move current application to background, press again for return to foreground
-- <kbd>Ctrl+G</kbd> - jump to bookmarked directory. Use `mark` in directory for add to bookmarks
-- <kbd>Ctrl+R</kbd> - show command history
-- <kbd>Ctrl+@</kbd> - show all fzf-widgets
-- <kbd>Ctrl+@,C</kbd> - fzf-change-dir, press fast!
-- <kbd>Ctrl+\\</kbd> - fzf-change-recent-dir
-- <kbd>Ctrl+@,G</kbd> - fzf-change-repository
-- <kbd>Ctrl+@,F</kbd> - fzf-edit-files
-- <kbd>Ctrl+@,.</kbd> - fzf-edit-dotfiles
-- <kbd>Ctrl+@,S</kbd> - fzf-exec-ssh (using your ~/.ssh/config)
-- <kbd>Ctrl+@,G,A</kbd> - fzf-git-add-file
-- <kbd>Ctrl+@,G,B</kbd> - fzf-git-checkout-branch
-- <kbd>Ctrl+@,G,D</kbd> - fzf-git-delete-branches
-
 ## Configure bundles
 
-You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L37).
-If you like default bundles, but you want to add your bundles, use `zsh_antigen_bundles_extras` variable (see example playbook above).
-If you want to remove some default bundles, you should use `zsh_antigen_bundles` variable.
+You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L33).
+If you like default bundles, but you want to add your bundles, use `zsh_antigen_bundles_extras` variable for `antigen` or `zsh_antidote_bundles_extras` variable for `antidote` (see example playbook above).
+If you want to remove some default bundles, you should use `zsh_antigen_bundles` variable for `antigen` or `zsh_antidote_bundles` for antidote.
 
-Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-bundle). All bellow variants valid:
+Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-bundle) or [`antidote`](https://antidote.sh/usage). All bellow variants valid:
 
 ```yaml
 - docker # oh-my-zsh plugin
@@ -267,7 +189,7 @@ Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-
 - ~/projects/zsh/my-plugin --no-local-clone # plugin from local directory
 ```
 
-Note that bundles can use conditions for load. There are two types of conditions:
+>NB: that bundles can use conditions for loading. There are two types of conditions:
 
 1. Command conditions. Just add `command` to bundle:
 
@@ -289,4 +211,4 @@ Bundles `docker` and `docker-compose` will be added to config only if commands e
 - { name: brew, when: "{{ ansible_os_family != 'Darwin' }}" }
 ```
 
-Note: you should wrap condition in `"{{ }}"`
+>NB: You should wrap condition within: `"{{ }}"`

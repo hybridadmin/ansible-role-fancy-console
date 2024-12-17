@@ -1,9 +1,5 @@
 ---
 
-- name: Set user directory
-  set_fact:
-    zsh_user_dir: "{{ ansible_user_dir }}"
-
 - name: Check if wsl
   shell: |
     set -o pipefail
@@ -26,7 +22,7 @@
 
 - name: Golang installation
   include_tasks: golang-install.yml
-  when: powerline_version == "go"
+  when: prompt_theme_engine == 'powerline'
 
 - name: Installation steps
   include_tasks: install.yml
@@ -47,3 +43,4 @@
   changed_when: false
   failed_when: false
   tags: always
+  when: zsh_plugin_manager == 'antigen'

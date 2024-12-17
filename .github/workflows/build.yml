@@ -5,7 +5,7 @@ name: CI
   push:
     branches:
       - master
-      - tc/more-mac-mods
+      - main
   schedule:
     - cron: "0 6 * * 3"
 
@@ -16,17 +16,17 @@ defaults:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: "hybridadmin.fancy_console"
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: "3.12"
 
       - name: Install test dependencies.
         run: pip3 install yamllint ansible-lint
@@ -40,7 +40,7 @@ jobs:
     needs:
       - lint
     name: Molecule
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 5
@@ -48,18 +48,20 @@ jobs:
         distro:
           - image: centos
             tag: 8
-          - image: centos
-            tag: 7
+          - image: ubuntu
+            tag: noble
+          - image: ubuntu
+            tag: jammy
           - image: ubuntu
             tag: focal
           - image: ubuntu
             tag: bionic
           - image: debian
-            tag: 10
+            tag: 11
           - image: fedora
-            tag: 34
+            tag: 39
           - image: fedora
-            tag: 33
+            tag: 40
           - image: amazonlinux
             tag: 2
     env:
@@ -67,19 +69,20 @@ jobs:
       ANSIBLE_STDOUT_CALLBACK: yaml
       ANSIBLE_VERBOSITY: 1
       ANSIBLE_LOAD_CALLBACK_PLUGINS: true
+
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: "hybridadmin.fancy_console"
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: "3.12"
 
       - name: Install test dependencies.
-        run: pip3 install ansible==6.6.0 molecule-docker==2.1.0
+        run: pip3 install ansible==9.9.0 molecule==24.12.0 molecule-plugins[docker] docker
 
       - name: Run Molecule tests.
         run: molecule test

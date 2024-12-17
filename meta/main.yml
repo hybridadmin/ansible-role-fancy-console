@@ -3,7 +3,7 @@ galaxy_info:
   author: hybridadmin
   role_name: fancy_console
   company: N/A
-  description: oh-my-zsh with powershell-go or powerline-shell theme, fzf and other plugins
+  description: oh-my-zsh with powershell-go theme, fzf and other plugins
   license: MIT
   min_ansible_version: 2.9
   platforms:
@@ -11,25 +11,29 @@ galaxy_info:
       versions:
         - bionic
         - focal
+        - jammy
+        - noble
     - name: Debian
       versions:
         - buster
+        - bullseye
     - name: EL
       versions:
-        - 7
         - 8
     - name: Fedora
       versions:
-        - 33
-        - 34
+        - 39
+        - 40
     - name: macOS
       versions:
-        - Big-Sur
+        - Ventura
+        - Sonoma
   galaxy_tags:
     - system
     - shell
     - user
     - zsh
     - powerline-go
-    - powerline-shell
+    - antigen
+    - antidote
 dependencies: []
