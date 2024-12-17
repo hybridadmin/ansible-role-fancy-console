@@ -34,6 +34,5 @@ galaxy_info:
     - user
     - zsh
     - powerline-go
-    - antigen
     - antidote
 dependencies: []

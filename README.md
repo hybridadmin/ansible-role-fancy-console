@@ -11,12 +11,11 @@ Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu
 ## Includes:
 
 - [`zsh`](https://zsh.sourceforge.io)
-- [`antigen`](https://github.com/zsh-users/antigen) or [`antidote`](https://antidote.sh/)
+- [`antidote`](https://antidote.sh/)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
 - [`oh-my-posh`](https://ohmyposh.dev/) or [`powerline-go`](https://github.com/justjanne/powerline-go)
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
 - [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting)
-- [`unixorn/autoupdate-antigen.zsh plugin`](https://github.com/unixorn/autoupdate-antigen.zshplugin)
 - [`urbainvaes/fzf-marks`](https://github.com/urbainvaes/fzf-marks)
 
 ## Features
@@ -69,7 +68,7 @@ ansible-galaxy install hybridadmin.fancy_console --force
 - hosts: all
   vars:
     prompt_theme_engine: powerline
-    zsh_antigen_bundles_extras:
+    zsh_antidote_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
       - MichaelAquilina/zsh-you-should-use
@@ -109,8 +108,7 @@ Or via command:
 ansible-playbook -i hosts zsh.yml --extra-vars="zsh_user=otheruser"
 ```
 
-4. Install fzf **without shell extensions**, [`download binary`](https://github.com/junegunn/fzf/releases)
-   or `brew install fzf` for macOS.
+4. Install fzf **without shell extensions**, [`download binary`](https://github.com/junegunn/fzf/releases) or `brew install fzf` for macOS.
 
 
 ## Multiuser shared install
@@ -176,11 +174,10 @@ zsh_aliases:
 
 ## Configure bundles
 
-You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L33).
-If you like default bundles, but you want to add your bundles, use `zsh_antigen_bundles_extras` variable for `antigen` or `zsh_antidote_bundles_extras` variable for `antidote` (see example playbook above).
-If you want to remove some default bundles, you should use `zsh_antigen_bundles` variable for `antigen` or `zsh_antidote_bundles` for antidote.
+You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L33). If you like default bundles, but you want to add your bundles, use `zsh_antidote_bundles_extras` variable for `antidote` (see example playbook above).
+If you want to remove some default bundles, you should use `zsh_antidote_bundles` for antidote.
 
-Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-bundle) or [`antidote`](https://antidote.sh/usage). All bellow variants valid:
+Format of list matches [`antidote`](https://antidote.sh/usage). All bellow variants valid:
 
 ```yaml
 - docker # oh-my-zsh plugin

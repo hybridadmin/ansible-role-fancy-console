@@ -4,7 +4,7 @@
   hosts: localhost
   vars:
     prompt_theme_engine: powerline
-    zsh_antigen_bundles_extras:
+    zsh_antidote_bundles_extras:
       - nvm
       - joel-porquet/zsh-dircolors-solarized
       - MichaelAquilina/zsh-you-should-use

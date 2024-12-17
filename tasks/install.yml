@@ -121,26 +121,6 @@
 
 - name: Install zsh plugin manager
   block:
-    - name: Clone antigen {{ zsh_antigen_version }}
-      git:
-        repo: https://github.com/zsh-users/antigen.git
-        dest: "{{ zsh_antigen_path }}/antigen"
-        version: "{{ zsh_antigen_version }}"
-        force: yes
-      become: true
-      become_user: "{{ zsh_user }}"
-      register: zsh_register_antigen_clone
-      when: zsh_plugin_manager == 'antigen'
-
-    - name: Set antigen directory permissions
-      file:
-        name: "{{ zsh_antigen_path }}"
-        owner: "{{ zsh_user }}"
-        group: "{{ zsh_user_group }}"
-        recurse: yes
-      changed_when: false
-      when: zsh_plugin_manager == 'antigen'
-
     - name: Clone antidote {{ zsh_antidote_version }}
       git:
         repo: https://github.com/mattmc3/antidote.git
