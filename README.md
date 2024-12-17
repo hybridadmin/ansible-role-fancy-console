@@ -45,12 +45,11 @@ If you are not familiar with Ansible, you can just execute [`install.sh`](instal
 curl https://raw.githubusercontent.com/hybridadmin/ansible-role-fancy-console/main/install.sh | bash
 ```
 
-It will install zsh for root and current user.
-Then [`configure terminal application`](#configure-terminal-application).
+It will install zsh for root and current user, then [`configure terminal application`](#configure-terminal-application).
 
 ### Manual install
 
-[`Install Ansible`](https://docs.ansible.com/ansible/latest/installation_guide/).
+- <https://docs.ansible.com/ansible/latest/installation_guide/>
 
 ```bash
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
