@@ -4,18 +4,27 @@
 
 # If you use Oh-My-Zsh with antidote, load this plugin FIRST to set things up so you
 # don't have to worry about whether OMZ will work correctly.
-getantidote/use-omz
+getantidote/use-omz                   # Use ohmyzsh
 ohmyzsh/ohmyzsh path:lib              # Make Zsh more featureful
 ohmyzsh/ohmyzsh path:plugins/extract  # Use cool OMZ plugins
 
-{% for antidote_bundle in zsh_antidote_bundles %}
-{% if antidote_bundle.path is defined %}
-{% if antidote_bundle.path is defined and not(antidote_bundle.conditional is defined) %}
-{{ antidote_bundle.name }} path:{{ antidote_bundle.path }}
-{% else%}
-{{ antidote_bundle.name }} path:{{ antidote_bundle.path }} conditional:{{ antidote_bundle.conditional }}
+{% for bundle in zsh_antidote_bundles %}
+{% if bundle.path is defined %}
+{% if bundle.path is defined and not(bundle.conditional is defined) %}
+{% if not(bundle.command is defined) -%}
+{{ bundle.name }} path:{{ bundle.path }}
+{% endif -%}
+{% else %}
+{{ bundle.name }} path:{{ bundle.path }} conditional:{{ bundle.conditional }}
 {% endif %}
 {% else %}
-{{ antidote_bundle.name }}
+{{ bundle.name }}
 {% endif %}
+{% endfor %}
+
+# command plugins
+{% for cmd in zsh_register_commands_exists.results -%}
+{% if cmd.cmd is defined and cmd.rc == 0 -%}
+{{ cmd.item.name }} path:{{ cmd.item.path }} # command exists
+{% endif -%}
 {% endfor %}

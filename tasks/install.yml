@@ -49,11 +49,12 @@
     git clone https://github.com/TheLocehiliosan/yadm.git {{ zsh_user_home_dir }}/.yadm-project
     ln -s {{ zsh_user_home_dir }}/.yadm-project/yadm {{ zsh_user_home_dir }}/.local/bin/yadm
     chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_home_dir }}/.yadm-project
+    {{ zsh_user_home_dir }}/.local/bin/yadm -v
   args:
     executable: /bin/bash
     creates: "{{ zsh_user_home_dir }}/.yadm-project"
   changed_when: false
-  when: ansible_os_family == 'Debian' and ansible_os_family != 'Darwin'
+  when: ansible_os_family != 'Darwin'
 
 - name: Install grc
   block:

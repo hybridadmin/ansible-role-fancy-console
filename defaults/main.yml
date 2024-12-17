@@ -62,6 +62,10 @@ zsh_antidote_bundles:
   - { name: "zsh-users/zsh-completions" }
   - { name: "oldratlee/hacker-quotes" }
 
+  # Command bundles
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/docker", command: "docker" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/docker-compose", command: "docker-compose" }
+
 # useful for deploy many zsh users at host, without duplicate and without write access
 zsh_shared: false
 
