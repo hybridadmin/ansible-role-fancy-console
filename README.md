@@ -180,10 +180,10 @@ If you want to remove some default bundles, you should use `zsh_antidote_bundles
 Format of list matches [`antidote`](https://antidote.sh/usage). All bellow variants valid:
 
 ```yaml
-- docker # oh-my-zsh plugin
-- zsh-users/zsh-autosuggestions # plugin from github
-- zsh-users/zsh-autosuggestions@v0.3.3 # plugin from github with fixed version
-- ~/projects/zsh/my-plugin --no-local-clone # plugin from local directory
+- { name: "ohmyzsh/ohmyzsh", path: "plugins/fancy-ctrl-z" } # oh-my-zsh plugin
+- { name: "zsh-users/zsh-autosuggestions" } # plugin from github
+- { name: "zsh-users/zsh-autosuggestions@v0.3.3" } # plugin from github with fixed version
+- { name: "popstas/zsh-command-time" }
 ```
 
 >NB: that bundles can use conditions for loading. There are two types of conditions:
@@ -201,11 +201,7 @@ Bundles `docker` and `docker-compose` will be added to config only if commands e
 2. When conditions. You can define any ansible conditions as you define in `when` in tasks:
 
 ```yaml
-# load only for zsh >= 4.3.17
-- name: zsh-users/zsh-syntax-highlighting
-  when: "{{ zsh_version is version('4.3.17', '>=') }}"
 # load only for macOS
-- { name: brew, when: "{{ ansible_os_family != 'Darwin' }}" }
+- { name: "ohmyzsh/ohmyzsh", path: "plugins/brew", conditional: "is-macos" }
+- { name: "ohmyzsh/ohmyzsh", path: "plugins/macos", conditional: "is-macos" }
 ```
-
->NB: You should wrap condition within: `"{{ }}"`
