@@ -31,6 +31,7 @@
   register: zsh_register_commands_exists
 
 - name: Antidote installed version check
+  when: zsh_plugin_manager == 'antidote'
   block:
     - name: Check antidote version
       shell: |
@@ -47,7 +48,11 @@
     - name: Set zsh_antidote_installed_version variable
       set_fact:
         zsh_antidote_installed_version: "{{ zsh_register_antidote_version.stdout }}"
-  when: zsh_plugin_manager == 'antidote'
+
+- name: Merge bundles lists
+  set_fact:
+    zsh_antidote_bundles: "{{ zsh_antidote_bundles + zsh_antidote_bundles_extras }}"
+  when: zsh_antidote_bundles_extras is defined
 
 - name: Write .zshrc config
   template:

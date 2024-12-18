@@ -56,11 +56,11 @@ zsh_antidote_bundles:
   - { name: "urbainvaes/fzf-marks" }
   - { name: "wfxr/forgit" }
   - { name: "Aloxaf/fzf-tab" }
-  - { name: "MichaelAquilina/zsh-you-should-use" }
   - { name: "zdharma-continuum/fast-syntax-highlighting" }
   - { name: "trapd00r/zsh-syntax-highlighting-filetypes" }
   - { name: "zsh-users/zsh-completions" }
-  - { name: "oldratlee/hacker-quotes" }
+#  - { name: "MichaelAquilina/zsh-you-should-use" }
+#  - { name: "oldratlee/hacker-quotes" }
 
   # Command bundles
   - { name: "ohmyzsh/ohmyzsh", path: "plugins/docker", command: "docker" }

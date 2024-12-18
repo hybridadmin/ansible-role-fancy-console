@@ -9,10 +9,9 @@
     zsh_plugin_manager: antidote
     prompt_theme_engine: omp #powerline
     zsh_antidote_bundles_extras:
-      - nvm
-      - joel-porquet/zsh-dircolors-solarized
-      - MichaelAquilina/zsh-you-should-use
-      - oldratlee/hacker-quotes
+      - { name: "joel-porquet/zsh-dircolors-solarized" }
+      - { name: "MichaelAquilina/zsh-you-should-use" }
+      - { name: "oldratlee/hacker-quotes" }
     zsh_autosuggestions_bind_key: "^U"
 
   pre_tasks:
