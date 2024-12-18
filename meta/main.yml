@@ -3,7 +3,7 @@ galaxy_info:
   author: hybridadmin
   role_name: fancy_console
   company: N/A
-  description: oh-my-zsh with powershell-go theme, fzf and other plugins
+  description: oh-my-zsh with oh-my-posh theme, fzf and other plugins
   license: MIT
   min_ansible_version: 2.9
   platforms:
@@ -33,6 +33,6 @@ galaxy_info:
     - shell
     - user
     - zsh
-    - powerline-go
+    - oh-my-posh
     - antidote
 dependencies: []
