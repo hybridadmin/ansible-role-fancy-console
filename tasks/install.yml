@@ -16,12 +16,11 @@
     mode: '0755'
   when: zsh_shared|bool
 
-- name: add antidote package
+- name: Add antidote package
   set_fact:
     pkg_requirements: "{{ pkg_requirements + ['antidote'] }}"
   when:
     - pkg_requirements is defined and (ansible_os_family == 'Darwin')
-    - zsh_plugin_manager == 'antidote'
 
 - name: List required packages
   debug:
@@ -49,11 +48,12 @@
     git clone https://github.com/TheLocehiliosan/yadm.git {{ zsh_user_home_dir }}/.yadm-project
     ln -s {{ zsh_user_home_dir }}/.yadm-project/yadm {{ zsh_user_home_dir }}/.local/bin/yadm
     chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_home_dir }}/.yadm-project
+    {{ zsh_user_home_dir }}/.local/bin/yadm version
   args:
     executable: /bin/bash
     creates: "{{ zsh_user_home_dir }}/.yadm-project"
   changed_when: false
-  when: ansible_os_family == 'Debian' and ansible_os_family != 'Darwin'
+  when: ansible_os_family != 'Darwin'
 
 - name: Install grc
   block:
@@ -81,25 +81,6 @@
 
 - name: Install prompt engine
   block:
-    - name: Get latest justjanne/powerline-go version
-      shell: |
-        set -o pipefail
-        curl --silent "https://api.github.com/repos/justjanne/powerline-go/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
-      args:
-        executable: /bin/bash
-      register: poweline_go_version
-      changed_when: false
-      when: prompt_theme_engine == 'powerline' and ansible_os_family != 'Darwin'
-
-    - name: Install justjanne/powerline-go {{ poweline_go_version.stdout }}
-      shell: |
-        set -o pipefail
-        {{ go_executable }} install github.com/justjanne/powerline-go@latest
-      args:
-        executable: /bin/bash
-      changed_when: false
-      when: prompt_theme_engine == 'powerline'
-
     - name: Install oh-my-posh
       shell: |
         set -o pipefail
@@ -107,7 +88,9 @@
       args:
         executable: /bin/bash
       changed_when: false
-      when: prompt_theme_engine == 'omp' and ansible_os_family != 'Darwin'
+      become: true
+      become_user: "root"
+      when: ansible_os_family != 'Darwin'
 
 - name: Install nano syntax highlighting
   git:
@@ -121,26 +104,6 @@
 
 - name: Install zsh plugin manager
   block:
-    - name: Clone antigen {{ zsh_antigen_version }}
-      git:
-        repo: https://github.com/zsh-users/antigen.git
-        dest: "{{ zsh_antigen_path }}/antigen"
-        version: "{{ zsh_antigen_version }}"
-        force: yes
-      become: true
-      become_user: "{{ zsh_user }}"
-      register: zsh_register_antigen_clone
-      when: zsh_plugin_manager == 'antigen'
-
-    - name: Set antigen directory permissions
-      file:
-        name: "{{ zsh_antigen_path }}"
-        owner: "{{ zsh_user }}"
-        group: "{{ zsh_user_group }}"
-        recurse: yes
-      changed_when: false
-      when: zsh_plugin_manager == 'antigen'
-
     - name: Clone antidote {{ zsh_antidote_version }}
       git:
         repo: https://github.com/mattmc3/antidote.git
@@ -152,7 +115,6 @@
       register: zsh_register_antidote_clone
       when:
         - ansible_os_family != 'Darwin'
-        - zsh_plugin_manager == 'antidote'
 
 - name: Install fzf
   block:
