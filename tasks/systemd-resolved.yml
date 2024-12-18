@@ -61,7 +61,7 @@
   become_user: "root"
   when:
     - ansible_virtualization_type == 'docker'
-    - is_wsl == 'true'
+    - ansible_os_name is defined and (ansible_os_name is regex("Microsoft"))
 
 - name: Template config files
   ansible.builtin.template:
@@ -75,4 +75,4 @@
   become_user: "root"
   when:
     - ansible_virtualization_type == 'docker'
-    - is_wsl == 'true'
+    - ansible_os_name is defined and (ansible_os_name is regex("Microsoft"))
