@@ -49,7 +49,7 @@
     git clone https://github.com/TheLocehiliosan/yadm.git {{ zsh_user_home_dir }}/.yadm-project
     ln -s {{ zsh_user_home_dir }}/.yadm-project/yadm {{ zsh_user_home_dir }}/.local/bin/yadm
     chown -R {{ zsh_user }}:{{ zsh_user_group }} {{ zsh_user_home_dir }}/.yadm-project
-    {{ zsh_user_home_dir }}/.local/bin/yadm -v
+    {{ zsh_user_home_dir }}/.local/bin/yadm version
   args:
     executable: /bin/bash
     creates: "{{ zsh_user_home_dir }}/.yadm-project"
