@@ -13,7 +13,7 @@ Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu
 - [`zsh`](https://zsh.sourceforge.io)
 - [`antidote`](https://antidote.sh/)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
-- [`oh-my-posh`](https://ohmyposh.dev/) or [`powerline-go`](https://github.com/justjanne/powerline-go)
+- [`oh-my-posh`](https://ohmyposh.dev/)
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
 - [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [`urbainvaes/fzf-marks`](https://github.com/urbainvaes/fzf-marks)
@@ -67,7 +67,6 @@ ansible-galaxy install hybridadmin.fancy_console --force
 ```yaml
 - hosts: all
   vars:
-    prompt_theme_engine: powerline
     zsh_antidote_bundles_extras:
       - { name: "joel-porquet/zsh-dircolors-solarized" }
       - { name: "MichaelAquilina/zsh-you-should-use" }

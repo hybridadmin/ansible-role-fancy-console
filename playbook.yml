@@ -3,7 +3,6 @@
 - name: Deploy
   hosts: localhost
   vars:
-    prompt_theme_engine: powerline
     zsh_antidote_bundles_extras:
       - { name: "joel-porquet/zsh-dircolors-solarized" }
       - { name: "MichaelAquilina/zsh-you-should-use" }

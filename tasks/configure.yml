@@ -31,7 +31,6 @@
   register: zsh_register_commands_exists
 
 - name: Antidote installed version check
-  when: zsh_plugin_manager == 'antidote'
   block:
     - name: Check antidote version
       shell: |
@@ -71,7 +70,6 @@
     mode: "0644"
     group: "{{ zsh_user_group }}"
     backup: yes
-  when: zsh_plugin_manager == 'antidote'
 
 - name: Set zsh as default shell
   user:

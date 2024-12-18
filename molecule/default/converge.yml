@@ -6,8 +6,6 @@
 
   vars:
     zsh_user: "zopfli"
-    zsh_plugin_manager: antidote
-    prompt_theme_engine: omp #powerline
     zsh_antidote_bundles_extras:
       - { name: "joel-porquet/zsh-dircolors-solarized" }
       - { name: "MichaelAquilina/zsh-you-should-use" }

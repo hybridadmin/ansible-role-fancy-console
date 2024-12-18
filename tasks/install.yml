@@ -21,7 +21,6 @@
     pkg_requirements: "{{ pkg_requirements + ['antidote'] }}"
   when:
     - pkg_requirements is defined and (ansible_os_family == 'Darwin')
-    - zsh_plugin_manager == 'antidote'
 
 - name: List required packages
   debug:
@@ -82,25 +81,6 @@
 
 - name: Install prompt engine
   block:
-    - name: Get latest justjanne/powerline-go version
-      shell: |
-        set -o pipefail
-        curl --silent "https://api.github.com/repos/justjanne/powerline-go/releases/latest" |  grep '"tag_name":' |sed -E 's/.*"([^"]+)".*/\1/' | sed 's/v//g'
-      args:
-        executable: /bin/bash
-      register: poweline_go_version
-      changed_when: false
-      when: prompt_theme_engine == 'powerline' and ansible_os_family != 'Darwin'
-
-    - name: Install justjanne/powerline-go {{ poweline_go_version.stdout }}
-      shell: |
-        set -o pipefail
-        {{ go_executable }} install github.com/justjanne/powerline-go@latest
-      args:
-        executable: /bin/bash
-      changed_when: false
-      when: prompt_theme_engine == 'powerline'
-
     - name: Install oh-my-posh
       shell: |
         set -o pipefail
@@ -108,7 +88,9 @@
       args:
         executable: /bin/bash
       changed_when: false
-      when: prompt_theme_engine == 'omp' and ansible_os_family != 'Darwin'
+      become: true
+      become_user: "root"
+      when: ansible_os_family != 'Darwin'
 
 - name: Install nano syntax highlighting
   git:
@@ -133,7 +115,6 @@
       register: zsh_register_antidote_clone
       when:
         - ansible_os_family != 'Darwin'
-        - zsh_plugin_manager == 'antidote'
 
 - name: Install fzf
   block:

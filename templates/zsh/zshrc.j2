@@ -82,60 +82,12 @@ export FZF_DEFAULT_OPTS="{{ zsh_fzf_default_opts }}"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE={{ zsh_autosuggestions_max_length }}
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240" # gray highlight
 
-{% if prompt_theme_engine == 'omp' %}
 # Load Oh My Posh configuration
 if [ ! -f ~/.config/oh-my-posh/config.toml ]; then
     eval "$(oh-my-posh init zsh)"
 else
     eval "$(oh-my-posh init zsh --config  ~/.config/oh-my-posh/config.toml)"
 fi
-
-{% else %}
-## powerline-go config
-POWERLINE_BIN="$(which powerline-go)"
-POWERLINE_FONT_MODE="patched"
-POWERLINE_MODULES_LEFT="time,venv,user,host,ssh,cwd,perms,git,hg,ssh,root"
-POWERLINE_MODULES_RIGHT="exit,duration,vgo,docker,kube"
-# removed - git
-
-if [ -n "${SSH_CLIENT}" ] ; then
-    POWERLINE_MODULES_LEFT="host,user,cwd,perms,jobs"
-fi
-
-POWERLINE_CMD="${POWERLINE_BIN} -shorten-gke-names -modules ${POWERLINE_MODULES_LEFT} -modules-right ${POWERLINE_MODULES_RIGHT} -numeric-exit-codes -eval"
-zmodload zsh/datetime
-
-function preexec() {
-    __TIMER=$EPOCHREALTIME
-}
-
-function powerline_precmd() {
-    local __ERRCODE=$?
-    local __DURATION=0
-
-    if [ -n $__TIMER ]; then
-        local __ERT=$EPOCHREALTIME
-        __DURATION="$(($__ERT - ${__TIMER:-__ERT}))"
-    fi
-
-    eval "$($GOPATH/bin/powerline-go -error $__ERRCODE -modules ${POWERLINE_MODULES_LEFT} -shell zsh -eval -duration $__DURATION -numeric-exit-codes -modules-right ${POWERLINE_MODULES_RIGHT} -cwd-max-depth 2)"
-    unset __TIMER
-}
-
-function install_powerline_precmd() {
-    for s in "${precmd_functions[@]}"; do
-        if [ "$s" = "powerline_precmd" ]; then
-            return
-        fi
-    done
-    precmd_functions+=(powerline_precmd)
-}
-
-if [ "$TERM" != "linux" ]; then
-    install_powerline_precmd
-fi
-
-{% endif %}
 
 # Aliases
 alias suser='su -'
