@@ -27,7 +27,6 @@ zsh_path:
 
 zsh_load_etc_profile: true
 
-
 zsh_antidote_bundles_extras: []
 
 # Antibody bundles
