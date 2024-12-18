@@ -16,7 +16,7 @@
     mode: '0755'
   when: zsh_shared|bool
 
-- name: add antidote package
+- name: Add antidote package
   set_fact:
     pkg_requirements: "{{ pkg_requirements + ['antidote'] }}"
   when:
