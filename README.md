@@ -11,12 +11,11 @@ Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu
 ## Includes:
 
 - [`zsh`](https://zsh.sourceforge.io)
-- [`antigen`](https://github.com/zsh-users/antigen) or [`antidote`](https://antidote.sh/)
+- [`antidote`](https://antidote.sh/)
 - [`oh-my-zsh`](https://github.com/robbyrussell/oh-my-zsh)
-- [`oh-my-posh`](https://ohmyposh.dev/) or [`powerline-go`](https://github.com/justjanne/powerline-go)
+- [`oh-my-posh`](https://ohmyposh.dev/)
 - [`zsh-autosuggestions`](https://github.com/zsh-users/zsh-autosuggestions)
 - [`zsh-syntax-highlighting`](https://github.com/zsh-users/zsh-syntax-highlighting)
-- [`unixorn/autoupdate-antigen.zsh plugin`](https://github.com/unixorn/autoupdate-antigen.zshplugin)
 - [`urbainvaes/fzf-marks`](https://github.com/urbainvaes/fzf-marks)
 
 ## Features
@@ -68,12 +67,10 @@ ansible-galaxy install hybridadmin.fancy_console --force
 ```yaml
 - hosts: all
   vars:
-    prompt_theme_engine: powerline
-    zsh_antigen_bundles_extras:
-      - nvm
-      - joel-porquet/zsh-dircolors-solarized
-      - MichaelAquilina/zsh-you-should-use
-      - oldratlee/hacker-quotes
+    zsh_antidote_bundles_extras:
+      - { name: "joel-porquet/zsh-dircolors-solarized" }
+      - { name: "MichaelAquilina/zsh-you-should-use" }
+      - { name: "oldratlee/hacker-quotes" }
     zsh_autosuggestions_bind_key: "^U"
   roles:
     - hybridadmin.fancy_console
@@ -109,8 +106,7 @@ Or via command:
 ansible-playbook -i hosts zsh.yml --extra-vars="zsh_user=otheruser"
 ```
 
-4. Install fzf **without shell extensions**, [`download binary`](https://github.com/junegunn/fzf/releases)
-   or `brew install fzf` for macOS.
+4. Install fzf **without shell extensions**, [`download binary`](https://github.com/junegunn/fzf/releases) or `brew install fzf` for macOS.
 
 
 ## Multiuser shared install
@@ -176,17 +172,16 @@ zsh_aliases:
 
 ## Configure bundles
 
-You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L33).
-If you like default bundles, but you want to add your bundles, use `zsh_antigen_bundles_extras` variable for `antigen` or `zsh_antidote_bundles_extras` variable for `antidote` (see example playbook above).
-If you want to remove some default bundles, you should use `zsh_antigen_bundles` variable for `antigen` or `zsh_antidote_bundles` for antidote.
+You can check default bundles in [`defaults/main.yml`](defaults/main.yml#L33). If you like default bundles, but you want to add your bundles, use `zsh_antidote_bundles_extras` variable for `antidote` (see example playbook above).
+If you want to remove some default bundles, you should use `zsh_antidote_bundles` for antidote.
 
-Format of list matches [`antigen`](https://github.com/zsh-users/antigen#antigen-bundle) or [`antidote`](https://antidote.sh/usage). All bellow variants valid:
+Format of list matches [`antidote`](https://antidote.sh/usage). All bellow variants valid:
 
 ```yaml
-- docker # oh-my-zsh plugin
-- zsh-users/zsh-autosuggestions # plugin from github
-- zsh-users/zsh-autosuggestions@v0.3.3 # plugin from github with fixed version
-- ~/projects/zsh/my-plugin --no-local-clone # plugin from local directory
+- { name: "ohmyzsh/ohmyzsh", path: "plugins/fancy-ctrl-z" } # oh-my-zsh plugin
+- { name: "zsh-users/zsh-autosuggestions" } # plugin from github
+- { name: "zsh-users/zsh-autosuggestions@v0.3.3" } # plugin from github with fixed version
+- { name: "popstas/zsh-command-time" }
 ```
 
 >NB: that bundles can use conditions for loading. There are two types of conditions:
@@ -204,11 +199,7 @@ Bundles `docker` and `docker-compose` will be added to config only if commands e
 2. When conditions. You can define any ansible conditions as you define in `when` in tasks:
 
 ```yaml
-# load only for zsh >= 4.3.17
-- name: zsh-users/zsh-syntax-highlighting
-  when: "{{ zsh_version is version('4.3.17', '>=') }}"
 # load only for macOS
-- { name: brew, when: "{{ ansible_os_family != 'Darwin' }}" }
+- { name: "ohmyzsh/ohmyzsh", path: "plugins/brew", conditional: "is-macos" }
+- { name: "ohmyzsh/ohmyzsh", path: "plugins/macos", conditional: "is-macos" }
 ```
-
->NB: You should wrap condition within: `"{{ }}"`

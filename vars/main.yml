@@ -2,17 +2,14 @@
 
 zsh_shared_config_dir: /usr/share/zsh-config
 
-systemd_resolved_conf: "{% if ansible_distribution == 'Fedora' and (ansible_distribution_version|int >= 40) %}/usr/lib/systemd/resolved.conf{% else %}/etc/systemd/resolved.conf{% endif %}"
+systemd_resolved_conf: "{% if ansible_distribution == 'Fedora' and (ansible_distribution_version | int >= 40) %}/usr/lib/systemd/resolved.conf{% else %}/etc/systemd/resolved.conf{% endif %}"
 go_executable: "{% if ansible_os_family == 'Darwin' %}/opt/homebrew/bin/go{% else %}/usr/local/go/bin/go{% endif %}"
-os_pkg_manager: "{% if 'Darwin' in ansible_os_family %}brew{% else %}{{ ansible_pkg_mgr }}{% endif %}"
 omp_theme_dir: "{% if ansible_os_family == 'Darwin' %}/opt/homebrew/opt/oh-my-posh/themes{% else %}/usr/share/oh-my-posh/themes{% endif %}"
 
 zsh_user_group: "{% if ansible_os_family == 'Darwin' %}staff{% else %}{{ zsh_user }}{% endif %}"
 zsh_user_home_dir: "{% if ansible_os_family == 'Darwin' %}/User/{{ zsh_user }}{% else %}{% if zsh_user == 'root' %}/root{% else %}/home/{{ zsh_user }}{% endif %}{% endif %}"
-zsh_antigen_path: "{% if zsh_shared %}{{ zsh_shared_config_dir }}{% else %}{{ zsh_user_home_dir }}/.antigen{% endif %}"
 zsh_antidote_path: "{% if zsh_shared %}{{ zsh_shared_config_dir }}{% else %}{% if ansible_os_family == 'Darwin' %}/opt/homebrew/opt/antidote/share/antidote{% else %}{{ zsh_user_home_dir }}/.antidote{% endif %}{% endif %}"
 zsh_config: "{% if zsh_shared %}{{ zsh_shared_config_dir }}/.zshrc{% else %}{{ zsh_user_home_dir }}/.zshrc{% endif %}"
-zsh_antigen_path_compat: "{{ zsh_antigen_path | replace('~' + zsh_user, '$HOME') }}"
 
 zsh_fzf_os: "{{ ansible_system | lower }}"
 zsh_fzf_arch: "{% if '64' in ansible_architecture %}amd64{% else %}386{% endif %}"

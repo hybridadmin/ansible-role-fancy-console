@@ -23,31 +23,12 @@
 
 - name: Check commands exists
   shell: "command -v {{ item.command }} || which {{ item.command }}"
-  with_items: "{{ zsh_antigen_bundles }}"
+  with_items: "{{ zsh_antidote_bundles }}"
   failed_when: false
   changed_when: false
   check_mode: no
-  when: item.command is defined and (zsh_plugin_manager == 'antigen')
+  when: item.command is defined
   register: zsh_register_commands_exists
-
-- name: Antigen installed version check
-  block:
-    - name: Check antigen version
-      shell: |
-        set -o pipefail
-        cat {{ zsh_antigen_path }}/antigen/VERSION | tr -d 'v'
-      args:
-        executable: /bin/bash
-      register: zsh_register_antigen_version
-      changed_when: false
-      failed_when: false
-      check_mode: no
-      tags: configure
-
-    - name: Set zsh_antigen_installed_version variable
-      set_fact:
-        zsh_antigen_installed_version: "{{ zsh_register_antigen_version.stdout }}"
-  when: zsh_plugin_manager == 'antigen'
 
 - name: Antidote installed version check
   block:
@@ -66,7 +47,11 @@
     - name: Set zsh_antidote_installed_version variable
       set_fact:
         zsh_antidote_installed_version: "{{ zsh_register_antidote_version.stdout }}"
-  when: zsh_plugin_manager == 'antidote'
+
+- name: Merge bundles lists
+  set_fact:
+    zsh_antidote_bundles: "{{ zsh_antidote_bundles + zsh_antidote_bundles_extras }}"
+  when: zsh_antidote_bundles_extras is defined
 
 - name: Write .zshrc config
   template:
@@ -85,7 +70,6 @@
     mode: "0644"
     group: "{{ zsh_user_group }}"
     backup: yes
-  when: zsh_plugin_manager == 'antidote'
 
 - name: Set zsh as default shell
   user:

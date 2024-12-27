@@ -1,12 +1,7 @@
 ---
 zsh_user: "{{ ansible_user_id }}"
 
-zsh_plugin_manager: antigen #antidote
 zsh_antidote_version: main
-
-# Possible options: omp, powerline
-prompt_theme_engine: powerline
-#powerline_version: "go"
 
 # .zshrc config
 zsh_hist_stamps: yyyy-mm-dd
@@ -27,43 +22,7 @@ zsh_path:
 
 zsh_load_etc_profile: true
 
-zsh_antigen_version: master
-zsh_antigen_theme: ""
-
-zsh_antigen_bundles:
-  - { name: command-not-found, when: "{{ ansible_os_family != 'Darwin' }}" } # too slow on OSX
-  - { name: brew, command: brew }
-  - { name: docker, command: docker }
-  - { name: docker-compose, command: docker-compose }
-  - fancy-ctrl-z
-  - git-extras
-  - gnu-utils
-  - web-search
-  - { name: httpie, command: http }
-  - { name: go, command: go }
-  - { name: gulp, command: gulp }
-  - { name: pip, command: pip }
-  - { name: rake, command: rake }
-  - { name: symfony2, command: symfony }
-  - { name: systemd, command: systemctl }
-  - python
-  - { name: tmux, command: tmux }
-
-  # on zsh 4.3.10 autosuggestions breaks multiline commands with \
-  - { name: zsh-users/zsh-autosuggestions, when: "{{ zsh_version is version('5.0', '>=') }}" }
-  - popstas/zsh-command-time
-  - { name: unixorn/autoupdate-antigen.zshplugin, when: "{{ zsh_update_interval > 0 }}" }
-  - urbainvaes/fzf-marks # replaces jump plugin, mark, jump and Ctrl+G
-  # must be last, don't work on zsh < 4.3.17
-  #- { name: zsh-users/zsh-syntax-highlighting, when: "{{ zsh_version | default(false) is version('4.3.17', '>=') }}" }
-  # bug with text paste in fast-syntax-highlighting v1.21, see https://github.com/zdharma/fast-syntax-highlighting/issues/30
-  - { name: zdharma-continuum/fast-syntax-highlighting, when: "{{ zsh_version is version('4.3.17', '>=') }}" }
-  #https://github.com/wfxr/forgit
-  - wfxr/forgit
-  # https://github.com/Aloxaf/fzf-tab
-  - Aloxaf/fzf-tab
-
-zsh_antigen_bundles_extras: []
+zsh_antidote_bundles_extras: []
 
 # Antibody bundles
 zsh_antidote_bundles:
@@ -91,11 +50,15 @@ zsh_antidote_bundles:
   - { name: "urbainvaes/fzf-marks" }
   - { name: "wfxr/forgit" }
   - { name: "Aloxaf/fzf-tab" }
-  - { name: "MichaelAquilina/zsh-you-should-use" }
   - { name: "zdharma-continuum/fast-syntax-highlighting" }
   - { name: "trapd00r/zsh-syntax-highlighting-filetypes" }
   - { name: "zsh-users/zsh-completions" }
-  - { name: "oldratlee/hacker-quotes" }
+#  - { name: "MichaelAquilina/zsh-you-should-use" }
+#  - { name: "oldratlee/hacker-quotes" }
+
+  # Command bundles
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/docker", command: "docker" }
+  - { name: "ohmyzsh/ohmyzsh", path: "plugins/docker-compose", command: "docker-compose" }
 
 # useful for deploy many zsh users at host, without duplicate and without write access
 zsh_shared: false

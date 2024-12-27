@@ -1,11 +1,6 @@
 # {{ ansible_managed }}
 # zsh version: {{ zsh_version }}
-{% if zsh_plugin_manager == 'antigen' %}
-# antigen version: {{ zsh_antigen_installed_version }}
-{% endif %}
-{% if zsh_plugin_manager == 'antidote' %}
 # antidote version: {{ zsh_antidote_installed_version }}
-{% endif %}
 
 
 export TERM="{{ zsh_term }}"
@@ -34,66 +29,7 @@ if [ -f ~/.tmux.conf ] || [ -f ~/.tmux.conf.local ]; then
 fi
 
 {% set bundles_enabled = [] %}
-{% if zsh_plugin_manager == 'antigen' %}
-# ADOTDIR="{{ zsh_antigen_path_compat }}"
-{% if zsh_shared %}
-ANTIGEN_AUTO_CONFIG=false # disable updates
-_ANTIGEN_THEME_COMPAT=false # disable theme cache
-{% endif %}
-
-ANTIGEN_BUNDLES="{{ zsh_antigen_path_compat }}/bundles"
-ANTIGEN_PLUGIN_UPDATE_DAYS="{{ zsh_update_interval }}"
-ANTIGEN_SYSTEM_UPDATE_DAYS="{{ zsh_update_interval }}"
-
-source "{{ zsh_antigen_path_compat }}/antigen/antigen.zsh"
-
-antigen use oh-my-zsh
-
-{% for bundle in zsh_antigen_bundles -%}
-    {%- if bundle is mapping -%}
-        {% set valid = true -%}
-        {% set command_not_exists = [] -%}
-
-        {%- if bundle.when is defined and not bundle.when -%}
-            {% set valid = false -%}
-        {% endif -%}
-
-        {% if bundle.command is defined -%}
-            {% for cmd in zsh_register_commands_exists.results -%}
-                {% if cmd.cmd is defined and cmd.rc != 0 and cmd.item.command == bundle.command -%}
-                    {% if command_not_exists.append(1) %}{% endif -%}
-                {% endif -%}
-            {% endfor -%}
-        {% endif -%}
-
-        {% if valid and not command_not_exists %}
-            {%- if 'zsh-syntax-highlighting' in bundle.name or 'fast-syntax-highlighting' in bundle.name -%}
-# will fixed in zsh-autosuggestion v0.4 - https://github.com/zsh-users/zsh-autosuggestions/pull/218
-if (( ZSHRC_LOAD_ONCE++ == 0 )); then
-    antigen bundle {{ bundle.name }}
-fi
-{% else -%}
-{% if bundles_enabled.append(bundle.name) %}{% endif -%}
-antigen bundle {{ bundle.name }}
-{% endif -%}
-        {% endif -%}
-    {%- else -%}
-{% if bundles_enabled.append(bundle) %}{% endif -%}
-antigen bundle {{ bundle }}
-{% endif %}
-{% endfor %}
-
-# additional bundles
-{% if zsh_antigen_bundles_extras is defined -%}
-{% for bundle_item in zsh_antigen_bundles_extras %}
-antigen bundle {{ bundle_item }}
-{% endfor %}
-{% endif %}
-
-antigen apply
-
-{% else %}
-
+# Antidote plugin manager
 #autoload -U +X compinit && compinit
 #autoload -U +X bashcompinit && bashcompinit
 
@@ -123,7 +59,6 @@ fi
 # Source your static plugins file.
 source ${zsh_plugins}.zsh
 
-{% endif %}
 
 {% if not zsh_share_history %}
 unsetopt share_history
@@ -147,60 +82,12 @@ export FZF_DEFAULT_OPTS="{{ zsh_fzf_default_opts }}"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE={{ zsh_autosuggestions_max_length }}
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240" # gray highlight
 
-{% if prompt_theme_engine == 'omp' %}
 # Load Oh My Posh configuration
 if [ ! -f ~/.config/oh-my-posh/config.toml ]; then
     eval "$(oh-my-posh init zsh)"
 else
     eval "$(oh-my-posh init zsh --config  ~/.config/oh-my-posh/config.toml)"
 fi
-
-{% else %}
-## powerline-go config
-POWERLINE_BIN="$(which powerline-go)"
-POWERLINE_FONT_MODE="patched"
-POWERLINE_MODULES_LEFT="time,venv,user,host,ssh,cwd,perms,git,hg,ssh,root"
-POWERLINE_MODULES_RIGHT="exit,duration,vgo,docker,kube"
-# removed - git
-
-if [ -n "${SSH_CLIENT}" ] ; then
-    POWERLINE_MODULES_LEFT="host,user,cwd,perms,jobs"
-fi
-
-POWERLINE_CMD="${POWERLINE_BIN} -shorten-gke-names -modules ${POWERLINE_MODULES_LEFT} -modules-right ${POWERLINE_MODULES_RIGHT} -numeric-exit-codes -eval"
-zmodload zsh/datetime
-
-function preexec() {
-    __TIMER=$EPOCHREALTIME
-}
-
-function powerline_precmd() {
-    local __ERRCODE=$?
-    local __DURATION=0
-
-    if [ -n $__TIMER ]; then
-        local __ERT=$EPOCHREALTIME
-        __DURATION="$(($__ERT - ${__TIMER:-__ERT}))"
-    fi
-
-    eval "$($GOPATH/bin/powerline-go -error $__ERRCODE -modules ${POWERLINE_MODULES_LEFT} -shell zsh -eval -duration $__DURATION -numeric-exit-codes -modules-right ${POWERLINE_MODULES_RIGHT} -cwd-max-depth 2)"
-    unset __TIMER
-}
-
-function install_powerline_precmd() {
-    for s in "${precmd_functions[@]}"; do
-        if [ "$s" = "powerline_precmd" ]; then
-            return
-        fi
-    done
-    precmd_functions+=(powerline_precmd)
-}
-
-if [ "$TERM" != "linux" ]; then
-    install_powerline_precmd
-fi
-
-{% endif %}
 
 # Aliases
 alias suser='su -'
