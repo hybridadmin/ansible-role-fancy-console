@@ -7,7 +7,6 @@
 > [!NOTE]
 Tested on Debian 11, Debian 12, Ubuntu 18.04, Ubuntu 20.04, Ubuntu 22.04, Ubuntu 24.04, macOS Ventura,  macOS Sonoma, macOS Sequoia, CentOS 8, Fedora 39, Fedora 40, Amazon Linux 2.
 
-
 ## Includes:
 
 - [`zsh`](https://zsh.sourceforge.io)
