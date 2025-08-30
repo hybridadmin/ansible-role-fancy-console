@@ -36,6 +36,14 @@
       become_user: "root"
       when: pkg_requirements is defined and (ansible_os_family != 'Darwin')
 
+    - name: Add brew taps
+      community.general.homebrew_tap:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ brew_taps }}"
+      when: pkg_requirements is defined and (ansible_os_family == 'Darwin')
+
     - name: Install brew packages
       community.general.homebrew:
         name: "{{ pkg_requirements }}"

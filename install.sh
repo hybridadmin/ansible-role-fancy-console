@@ -42,7 +42,7 @@ curl https://raw.githubusercontent.com/hybridadmin/ansible-role-fancy-console/ma
 #ansible-playbook -i "localhost," -c local -b /tmp/zsh.yml
 
 title "Provision playbook for current user: $(whoami)"
-ansible-playbook -i "localhost," -c local /tmp/zsh.yml --extra-vars="zsh_user=${USER}"
+ansible-playbook -i "localhost," -c local /tmp/zsh.yml --extra-vars="zsh_user=${USER}" --ask-become-pass
 
 title "Finished! Please, restart your shell."
 echo ""
