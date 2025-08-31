@@ -15,8 +15,9 @@ galaxy_info:
         - noble
     - name: Debian
       versions:
-        - buster
         - bullseye
+        - bookworm
+        - trixie
     - name: EL
       versions:
         - 8
