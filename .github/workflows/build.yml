@@ -60,10 +60,16 @@ jobs:
             tag: 11
           - image: debian
             tag: 12
+          - image: debian
+            tag: 13
+#          - image: fedora
+#            tag: 39
+#          - image: fedora
+#            tag: 40
           - image: fedora
-            tag: 39
+            tag: 41
           - image: fedora
-            tag: 40
+            tag: 42
           - image: amazonlinux
             tag: 2
     env:
