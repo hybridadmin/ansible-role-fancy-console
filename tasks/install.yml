@@ -42,7 +42,7 @@
         state: present
       with_items:
         - "{{ brew_taps }}"
-      when: pkg_requirements is defined and (ansible_os_family == 'Darwin')
+      when: brew_taps is defined and (ansible_os_family == 'Darwin')
 
     - name: Install brew packages
       community.general.homebrew:
