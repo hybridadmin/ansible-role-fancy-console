@@ -23,8 +23,8 @@ galaxy_info:
         - 8
     - name: Fedora
       versions:
-        - 39
-        - 40
+        - 41
+        - 42
     - name: macOS
       versions:
         - Ventura
