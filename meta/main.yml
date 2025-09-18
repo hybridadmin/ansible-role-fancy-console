@@ -15,15 +15,16 @@ galaxy_info:
         - noble
     - name: Debian
       versions:
-        - buster
         - bullseye
+        - bookworm
+        - trixie
     - name: EL
       versions:
         - 8
     - name: Fedora
       versions:
-        - 39
-        - 40
+        - 41
+        - 42
     - name: macOS
       versions:
         - Ventura
