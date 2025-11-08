@@ -15,18 +15,12 @@ jobs:
       max-parallel: 4
       matrix:
         distro:
-          - image: centos
-            tag: 8
           - image: ubuntu
             tag: noble
           - image: ubuntu
             tag: jammy
           - image: ubuntu
             tag: focal
-          - image: ubuntu
-            tag: bionic
-          - image: debian
-            tag: 11
           - image: debian
             tag: 12
           - image: debian
