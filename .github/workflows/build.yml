@@ -26,9 +26,9 @@ jobs:
           - image: debian
             tag: 13
           - image: fedora
-            tag: 41
-          - image: fedora
             tag: 42
+          - image: fedora
+            tag: 43
     uses: hybridadmin/reuse-workflows/.github/workflows/molecule.yml@main
     secrets: inherit
     with:
