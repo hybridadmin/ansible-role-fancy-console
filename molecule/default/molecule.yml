@@ -5,7 +5,7 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: ${ROLE_NAME:-exabgp}-${MOLECULE_DISTRO:-ubuntu}-${MOLECULE_DISTRO_TAG:-jammy}
+  - name: ${ROLE_NAME:-testing}-${MOLECULE_DISTRO:-ubuntu}-${MOLECULE_DISTRO_TAG:-jammy}
     image: "hybridadmin/ansible-${MOLECULE_DISTRO:-ubuntu}:${MOLECULE_DISTRO_TAG:-jammy}"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     cgroupns_mode: host
