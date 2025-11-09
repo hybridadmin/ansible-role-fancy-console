@@ -1,96 +1,37 @@
-name: CI
+name: run_molecule
 
-"on":
-  pull_request:
-  push:
-    branches:
-      - master
-      - main
-  schedule:
-    - cron: "0 6 * * 3"
-
-defaults:
-  run:
-    working-directory: "hybridadmin.fancy_console"
+on: [push]
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v4
-        with:
-          path: "hybridadmin.fancy_console"
+  run_linting:
+    uses: hybridadmin/reuse-workflows/.github/workflows/linting.yml@main
+    secrets: inherit
 
-      - name: Set up Python 3.
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install test dependencies.
-        run: pip3 install yamllint ansible-lint
-
-      - name: Lint code.
-        run: |
-          yamllint .
-          ansible-lint
-
-  molecule:
+  run_test:
     needs:
-      - lint
-    name: Molecule
-    runs-on: ubuntu-latest
+      - run_linting
     strategy:
       fail-fast: false
-      max-parallel: 5
+      max-parallel: 4
       matrix:
         distro:
-          - image: centos
-            tag: 8
           - image: ubuntu
             tag: noble
           - image: ubuntu
             tag: jammy
           - image: ubuntu
             tag: focal
-          - image: ubuntu
-            tag: bionic
-          - image: debian
-            tag: 11
           - image: debian
             tag: 12
           - image: debian
             tag: 13
           - image: fedora
-            tag: 41
-          - image: fedora
             tag: 42
-
-    env:
-      ANSIBLE_CALLBACK_WHITELIST: profile_tasks
-      ANSIBLE_STDOUT_CALLBACK: yaml
-      ANSIBLE_VERBOSITY: 1
-      ANSIBLE_LOAD_CALLBACK_PLUGINS: true
-
-    steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v4
-        with:
-          path: "hybridadmin.fancy_console"
-
-      - name: Set up Python 3.
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install test dependencies.
-        run: pip3 install ansible==9.9.0 molecule==24.12.0 molecule-plugins[docker] docker
-
-      - name: Run Molecule tests.
-        run: molecule test
-        env:
-          PY_COLORS: "1"
-          ANSIBLE_FORCE_COLOR: "1"
-          MOLECULE_DISTRO: ${{ matrix.distro.image }}
-          MOLECULE_DISTRO_TAG: ${{ matrix.distro.tag }}
+          - image: fedora
+            tag: 43
+    uses: hybridadmin/reuse-workflows/.github/workflows/molecule.yml@main
+    secrets: inherit
+    with:
+      distro_image: '${{ matrix.distro.image }}'
+      distro_tag: '${{ matrix.distro.tag }}'
+      working_directory: 'hybridadmin.fancy_console'
