@@ -7,7 +7,7 @@ jobs:
     uses: hybridadmin/reuse-workflows/.github/workflows/linting.yml@main
     secrets: inherit
 
-  run_molecule_test:
+  run_test:
     needs:
       - run_linting
     strategy:
